@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register - A+ Learning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black flex items-center justify-center min-h-screen">
+
+  <div class="bg-gray-900 p-8 rounded-3xl shadow-2xl w-96">
+
+    <!-- Logo / Title -->
+    <h1 class="text-3xl text-yellow-400 font-bold text-center mb-2">
+      Emo Graphics
+    </h1>
+    <p class="text-gray-400 text-center mb-6">
+      A+ Learning Platform
+    </p>
+
+    <!-- Register Form -->
+    <form id="registerForm">
+
+      <!-- Username -->
+      <input 
+        id="username"
+        type="text"
+        placeholder="Username"
+        required
+        class="w-full p-3 mb-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+      >
+
+      <!-- Password -->
+      <input 
+        id="password"
+        type="password"
+        placeholder="Password"
+        required
+        class="w-full p-3 mb-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+      >
+
+      <!-- Redeem Key -->
+      <input 
+        id="key"
+        type="text"
+        placeholder="Enter Redeem Key"
+        required
+        class="w-full p-3 mb-4 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+      >
+
+      <!-- Register Button -->
+      <button 
+        type="submit"
+        class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded transition duration-200">
+        Register
+      </button>
+
+    </form>
+
+    <!-- Buy Redeem Key -->
+    <a href="https://wa.me/265880187920?text=Hello%20I%20want%20to%20buy%20a%20redeem%20key%20for%20A%2B%20Learning"
+       target="_blank"
+       class="flex items-center justify-center gap-2 mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded transition duration-200">
+
+       💬 Buy Redeem Key on WhatsApp
+    </a>
+
+    <!-- Login Link -->
+    <p class="text-gray-400 text-center mt-5 text-sm">
+      Already have an account?
+      <a href="login.html" class="text-yellow-400 hover:underline">Login</a>
+    </p>
+
+  </div>
+
+  <!-- JS -->
+  <script src="register.js"></script>
+
+</body>
+</html>

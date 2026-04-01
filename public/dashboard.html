@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - A+ Learning</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white min-h-screen">
+
+  <div class="p-6 max-w-5xl mx-auto">
+
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl text-yellow-400 font-bold" id="greeting">Welcome!</h1>
+      <button id="logoutBtn" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-1 px-4 rounded">
+        Logout
+      </button>
+    </header>
+
+    <!-- Quiz Progress -->
+    <div class="bg-gray-900 p-4 rounded-2xl mb-8 shadow-lg">
+      <h2 class="text-xl text-yellow-400 font-bold mb-2">Your Quiz Progress</h2>
+      <ul id="quizProgress" class="text-gray-400"></ul>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Notes Card -->
+      <div class="bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
+        <h2 class="text-xl text-yellow-400 font-bold mb-2">📘 Notes</h2>
+        <p class="text-gray-400 mb-4">Access CompTIA A+ notes for exams and labs.</p>
+        <a href="notes.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center">
+          View Notes
+        </a>
+      </div>
+
+      <!-- Quiz Card -->
+      <div class="bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
+        <h2 class="text-xl text-yellow-400 font-bold mb-2">🧠 Quiz</h2>
+        <p class="text-gray-400 mb-4">Test your knowledge with multiple-choice quizzes.</p>
+        <a href="quiz.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center">
+          Start Quiz
+        </a>
+      </div>
+
+      <!-- Labs Card -->
+      <div class="bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
+        <h2 class="text-xl text-yellow-400 font-bold mb-2">🧪 Labs</h2>
+        <p class="text-gray-400 mb-4">Practice real-life lab scenarios for hands-on learning.</p>
+        <a href="labs.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center">
+          Start Labs
+        </a>
+      </div>
+
+      <!-- Progress Card -->
+      <div class="bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
+        <h2 class="text-xl text-yellow-400 font-bold mb-2">📊 Progress</h2>
+        <p class="text-gray-400 mb-4">Track your quiz scores and performance by topic.</p>
+        <a href="progress.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center">
+          View Progress
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Contact Information -->
+    <div class="bg-gray-900 p-6 rounded-2xl shadow-lg mt-8">
+      <h2 class="text-2xl text-yellow-400 font-bold mb-4"> Contact Information</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Email -->
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <h3 class="text-yellow-300 font-bold mb-2">Email</h3>
+          <p class="text-gray-400 mb-2">emographics22@gmail.com</p>
+          <a href="mailto:emographics22@gmail.com" class="text-yellow-400 hover:text-yellow-300 underline text-sm">
+            Send Email
+          </a>
+        </div>
+
+        <!-- Phone -->
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <h3 class="text-yellow-300 font-bold mb-2">Phone</h3>
+          <p class="text-gray-400 mb-2">+265880187920</p>
+          <a href="tel:+265880187920" class="text-yellow-400 hover:text-yellow-300 underline text-sm">
+            Call Now
+          </a>
+        </div>
+
+        <!-- Social Media -->
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <h3 class="text-yellow-300 font-bold mb-2">🌐 Social Media</h3>
+          <div class="flex gap-3">
+            <a href="https://x.com/wisma_emo" target="_blank" rel="noopener noreferrer" class="text-yellow-400 hover:text-yellow-300">Twitter</a>
+            <a href="https://web.facebook.com/wisma.em.2025/" target="_blank" rel="noopener noreferrer" class="text-yellow-400 hover:text-yellow-300">Facebook</a>
+            <a href="https://www.linkedin.com/in/wisdom-macheso-7b6869388/" target="_blank" rel="noopener noreferrer" class="text-yellow-400 hover:text-yellow-300">LinkedIn</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+<script src="quizzes.js"></script>
+<script>
+// Show username
+const username = localStorage.getItem('username') || "Student";
+document.getElementById('greeting').textContent = `Welcome, ${username}!`;
+
+// Logout button
+document.getElementById('logoutBtn').onclick = () => {
+  localStorage.removeItem('username');
+  window.location = 'login.html';
+};
+
+// Display per-topic quiz progress
+const progressList = document.getElementById('quizProgress');
+const scores = JSON.parse(localStorage.getItem('quizScores') || "{}");
+
+if(Object.keys(scores).length === 0){
+  progressList.innerHTML = "<li>No quizzes taken yet.</li>";
+} else {
+  progressList.innerHTML = "";
+  for(const topic in scores){
+    const li = document.createElement('li');
+    li.textContent = `${topic}: ${scores[topic]} / ${quizzes[topic].length} ✅`;
+    progressList.appendChild(li);
+  }
+}
+</script>
+
+</body>
+</html>

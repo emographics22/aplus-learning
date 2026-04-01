@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Progress - A+ Learning</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white min-h-screen">
+
+<div class="p-6 max-w-4xl mx-auto">
+
+  <!-- Header -->
+  <header class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl text-yellow-400 font-bold">Your Quiz Progress</h1>
+    <a href="dashboard.html" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
+      ← Back to Dashboard
+    </a>
+  </header>
+
+  <div class="bg-gray-900 p-8 rounded-3xl shadow-2xl">
+
+    <!-- Topic Selection -->
+    <div id="topic-selection">
+      <h2 class="text-yellow-400 mb-4 font-bold text-xl">Select Topic</h2>
+      <div id="topics" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </div>
+
+    <!-- Chapter Selection -->
+    <div id="quiz-selection" class="hidden">
+      <h2 class="text-yellow-400 mb-4 font-bold text-xl">Select Quiz</h2>
+      <div id="quizzes" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      <button onclick="goBackTopics()" class="mt-6 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">
+        ← Back to Topics
+      </button>
+    </div>
+
+    <!-- Result Section -->
+    <div id="result-section" class="hidden">
+      <div id="result"></div>
+      <button onclick="goBackQuizzes()" class="mt-6 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">
+        ← Back
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="progress.js"></script>
+</body>
+</html>
