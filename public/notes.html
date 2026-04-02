@@ -2,27 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notes - A+ Learning</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-black text-white min-h-screen flex items-center justify-center">
+<body class="bg-black text-white min-h-screen flex items-center justify-center p-4">
 
-<div class="bg-gray-900 p-8 rounded-3xl shadow-2xl w-96">
+<div class="bg-gray-900 p-4 sm:p-8 rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-sm">
 
-  <h1 class="text-3xl text-yellow-400 font-bold text-center mb-6">A+ Notes</h1>
+  <h1 class="text-2xl sm:text-3xl text-yellow-400 font-bold text-center mb-6">A+ Notes</h1>
 
   <!-- Topic Selection -->
   <div id="topic-selection">
-    <h2 class="text-yellow-400 mb-3 font-bold">Select Topic</h2>
+    <h2 class="text-lg sm:text-xl text-yellow-400 mb-3 font-bold">Select Topic</h2>
     <div id="topics"></div>
   </div>
 
   <!-- Chapter Selection -->
   <div id="chapter-selection" class="hidden">
-    <h2 class="text-yellow-400 mb-3 font-bold">Select Chapter</h2>
+    <h2 class="text-lg sm:text-xl text-yellow-400 mb-3 font-bold">Select Chapter</h2>
     <div id="chapters"></div>
 
-    <button onclick="goBackTopics()" class="mt-4 text-sm text-gray-400 underline">
+    <button onclick="goBackTopics()" class="mt-4 text-xs sm:text-sm text-gray-400 underline hover:text-gray-300">
       ← Back
     </button>
   </div>

@@ -2,56 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - A+ Learning</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-black text-white min-h-screen">
 
-  <div class="p-6 max-w-5xl mx-auto">
+  <div class="p-3 sm:p-6 max-w-5xl mx-auto">
 
     <!-- Header -->
-    <header class="flex justify-between items-center mb-8">
-      <h1 class="text-3xl text-yellow-400 font-bold" id="greeting">Welcome!</h1>
-      <button id="logoutBtn" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-1 px-4 rounded">
+    <header class="flex justify-between items-center mb-6 sm:mb-8 flex-wrap gap-4">
+      <h1 class="text-2xl sm:text-3xl text-yellow-400 font-bold" id="greeting">Welcome!</h1>
+      <button id="logoutBtn" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded text-sm sm:text-base">
         Logout
       </button>
     </header>
 
     <!-- Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
 
       <!-- Notes Card -->
-      <div class="bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
-        <h2 class="text-xl text-yellow-400 font-bold mb-2">📘 Notes</h2>
-        <p class="text-gray-400 mb-4">Access CompTIA A+ notes for exams and labs.</p>
-        <a href="notes.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center">
+      <div class="bg-gray-900 p-4 sm:p-6 rounded-lg sm:rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
+        <h2 class="text-lg sm:text-xl text-yellow-400 font-bold mb-2">📘 Notes</h2>
+        <p class="text-gray-400 mb-4 text-sm sm:text-base">Access CompTIA A+ notes for exams and labs.</p>
+        <a href="notes.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center text-sm sm:text-base">
           View Notes
         </a>
       </div>
 
       <!-- Quiz Card -->
-      <div class="bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
-        <h2 class="text-xl text-yellow-400 font-bold mb-2">🧠 Quiz</h2>
-        <p class="text-gray-400 mb-4">Test your knowledge with multiple-choice quizzes.</p>
-        <a href="quiz.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center">
+      <div class="bg-gray-900 p-4 sm:p-6 rounded-lg sm:rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
+        <h2 class="text-lg sm:text-xl text-yellow-400 font-bold mb-2">🧠 Quiz</h2>
+        <p class="text-gray-400 mb-4 text-sm sm:text-base">Test your knowledge with multiple-choice quizzes.</p>
+        <a href="quiz.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center text-sm sm:text-base">
           Start Quiz
         </a>
       </div>
 
       <!-- Labs Card -->
-      <div class="bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
-        <h2 class="text-xl text-yellow-400 font-bold mb-2">🧪 Labs</h2>
-        <p class="text-gray-400 mb-4">Practice real-life lab scenarios for hands-on learning.</p>
-        <a href="labs.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center">
+      <div class="bg-gray-900 p-4 sm:p-6 rounded-lg sm:rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
+        <h2 class="text-lg sm:text-xl text-yellow-400 font-bold mb-2">🧪 Labs</h2>
+        <p class="text-gray-400 mb-4 text-sm sm:text-base">Practice real-life lab scenarios for hands-on learning.</p>
+        <a href="labs.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center text-sm sm:text-base">
           Start Labs
         </a>
       </div>
 
       <!-- Progress Card -->
-      <div class="bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
-        <h2 class="text-xl text-yellow-400 font-bold mb-2">📊 Progress</h2>
-        <p class="text-gray-400 mb-4">Track your quiz progress and performance metrics.</p>
-        <a href="progress.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center">
+      <div class="bg-gray-900 p-4 sm:p-6 rounded-lg sm:rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
+        <h2 class="text-lg sm:text-xl text-yellow-400 font-bold mb-2">📊 Progress</h2>
+        <p class="text-gray-400 mb-4 text-sm sm:text-base">Track your quiz progress and performance metrics.</p>
+        <a href="progress.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center text-sm sm:text-base">
           View Progress
         </a>
       </div>
@@ -59,35 +60,35 @@
     </div>
 
     <!-- Contact Information -->
-    <div class="bg-gray-900 p-6 rounded-2xl shadow-lg mt-8">
-      <h2 class="text-2xl text-yellow-400 font-bold mb-4"> Contact Information</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-gray-900 p-4 sm:p-6 rounded-lg sm:rounded-2xl shadow-lg mt-6 sm:mt-8">
+      <h2 class="text-xl sm:text-2xl text-yellow-400 font-bold mb-4"> Contact Information</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
         
         <!-- Email -->
         <div class="bg-gray-800 p-4 rounded-lg">
-          <h3 class="text-yellow-300 font-bold mb-2">Email</h3>
-          <p class="text-gray-400 mb-2">emographics22@gmail.com</p>
-          <a href="mailto:emographics22@gmail.com" class="text-yellow-400 hover:text-yellow-300 underline text-sm">
+          <h3 class="text-yellow-300 font-bold mb-2 text-sm sm:text-base">Email</h3>
+          <p class="text-gray-400 mb-2 text-xs sm:text-sm break-all">emographics22@gmail.com</p>
+          <a href="mailto:emographics22@gmail.com" class="text-yellow-400 hover:text-yellow-300 underline text-xs sm:text-sm">
             Send Email
           </a>
         </div>
 
         <!-- Phone -->
         <div class="bg-gray-800 p-4 rounded-lg">
-          <h3 class="text-yellow-300 font-bold mb-2">Phone</h3>
-          <p class="text-gray-400 mb-2">+265990206529</p>
-          <a href="tel:+265990206529" class="text-yellow-400 hover:text-yellow-300 underline text-sm">
+          <h3 class="text-yellow-300 font-bold mb-2 text-sm sm:text-base">Phone</h3>
+          <p class="text-gray-400 mb-2 text-xs sm:text-sm">+265990206529</p>
+          <a href="tel:+265990206529" class="text-yellow-400 hover:text-yellow-300 underline text-xs sm:text-sm">
             Call Now
           </a>
         </div>
 
         <!-- Social Media -->
         <div class="bg-gray-800 p-4 rounded-lg">
-          <h3 class="text-yellow-300 font-bold mb-2">🌐 Social Media</h3>
-          <div class="flex gap-3">
-            <a href="https://x.com/wisma_emo" target="_blank" rel="noopener noreferrer" class="text-yellow-400 hover:text-yellow-300">Twitter</a>
-            <a href="https://web.facebook.com/wisma.em.2025/" target="_blank" rel="noopener noreferrer" class="text-yellow-400 hover:text-yellow-300">Facebook</a>
-            <a href="https://www.linkedin.com/in/wisdom-macheso-7b6869388/" target="_blank" rel="noopener noreferrer" class="text-yellow-400 hover:text-yellow-300">LinkedIn</a>
+          <h3 class="text-yellow-300 font-bold mb-2 text-sm sm:text-base">🌐 Social Media</h3>
+          <div class="flex gap-3 flex-wrap">
+            <a href="https://x.com/wisma_emo" target="_blank" rel="noopener noreferrer" class="text-yellow-400 hover:text-yellow-300 text-xs sm:text-sm">Twitter</a>
+            <a href="https://web.facebook.com/wisma.em.2025/" target="_blank" rel="noopener noreferrer" class="text-yellow-400 hover:text-yellow-300 text-xs sm:text-sm">Facebook</a>
+            <a href="https://www.linkedin.com/in/wisdom-macheso-7b6869388/" target="_blank" rel="noopener noreferrer" class="text-yellow-400 hover:text-yellow-300 text-xs sm:text-sm">LinkedIn</a>
           </div>
         </div>
 

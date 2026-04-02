@@ -2,34 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz Progress - A+ Learning</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-black text-white min-h-screen">
+<body class="bg-black text-white min-h-screen p-2 sm:p-4">
 
-<div class="p-6 max-w-4xl mx-auto">
+<div class="p-2 sm:p-6 max-w-4xl mx-auto">
 
   <!-- Header -->
-  <header class="flex justify-between items-center mb-8">
-    <h1 class="text-3xl text-yellow-400 font-bold">Your Quiz Progress</h1>
-    <a href="dashboard.html" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
+  <header class="flex justify-between items-center mb-6 sm:mb-8 flex-wrap gap-2">
+    <h1 class="text-2xl sm:text-3xl text-yellow-400 font-bold">Your Quiz Progress</h1>
+    <a href="dashboard.html" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-3 sm:px-4 rounded text-sm sm:text-base">
       ← Back to Dashboard
     </a>
   </header>
 
-  <div class="bg-gray-900 p-8 rounded-3xl shadow-2xl">
+  <div class="bg-gray-900 p-4 sm:p-8 rounded-2xl sm:rounded-3xl shadow-2xl">
 
     <!-- Topic Selection -->
     <div id="topic-selection">
-      <h2 class="text-yellow-400 mb-4 font-bold text-xl">Select Topic</h2>
-      <div id="topics" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      <h2 class="text-yellow-400 mb-4 font-bold text-lg sm:text-xl">Select Topic</h2>
+      <div id="topics" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4"></div>
     </div>
 
     <!-- Chapter Selection -->
     <div id="quiz-selection" class="hidden">
-      <h2 class="text-yellow-400 mb-4 font-bold text-xl">Select Quiz</h2>
-      <div id="quizzes" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-      <button onclick="goBackTopics()" class="mt-6 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">
+      <h2 class="text-yellow-400 mb-4 font-bold text-lg sm:text-xl">Select Quiz</h2>
+      <div id="quizzes" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4"></div>
+      <button onclick="goBackTopics()" class="mt-6 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded text-sm sm:text-base">
         ← Back to Topics
       </button>
     </div>
@@ -37,7 +38,7 @@
     <!-- Result Section -->
     <div id="result-section" class="hidden">
       <div id="result"></div>
-      <button onclick="goBackQuizzes()" class="mt-6 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">
+      <button onclick="goBackQuizzes()" class="mt-6 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded text-sm sm:text-base">
         ← Back
       </button>
     </div>

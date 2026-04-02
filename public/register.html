@@ -7,15 +7,15 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-black flex items-center justify-center min-h-screen">
+<body class="bg-black flex items-center justify-center min-h-screen p-4">
 
-  <div class="bg-gray-900 p-8 rounded-3xl shadow-2xl w-96">
+  <div class="bg-gray-900 p-4 sm:p-8 rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-sm">
 
     <!-- Logo / Title -->
-    <h1 class="text-3xl text-yellow-400 font-bold text-center mb-2">
+    <h1 class="text-2xl sm:text-3xl text-yellow-400 font-bold text-center mb-2">
       Emo Graphics
     </h1>
-    <p class="text-gray-400 text-center mb-6">
+    <p class="text-gray-400 text-center mb-6 text-sm sm:text-base">
       A+ Learning Platform
     </p>
 
@@ -28,7 +28,7 @@
         type="text"
         placeholder="Username"
         required
-        class="w-full p-3 mb-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+        class="w-full p-3 mb-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base"
       >
 
       <!-- Password -->
@@ -38,7 +38,7 @@
           type="password"
           placeholder="Password"
           required
-          class="w-full p-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 pr-12"
+          class="w-full p-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 pr-12 text-base"
         >
         <button type="button" id="togglePassword"
           class="absolute right-2 top-3 text-gray-400 hover:text-yellow-400 text-xs font-bold">
@@ -52,18 +52,18 @@
         type="text"
         placeholder="Enter Redeem Key"
         required
-        class="w-full p-3 mb-4 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+        class="w-full p-3 mb-4 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base"
       >
 
       <!-- Register Button -->
       <button 
         type="submit"
-        class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded transition duration-200">
+        class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded transition duration-200 text-base">
         Register
       </button>
 
       <!-- Login Link -->
-      <p class="text-gray-400 text-sm text-center mt-4">
+      <p class="text-gray-400 text-xs sm:text-sm text-center mt-4">
         Already have an account?
         <a href="login.html" class="text-yellow-400 hover:text-yellow-300 underline font-bold">
           Login here
@@ -75,7 +75,7 @@
     <!-- Buy Redeem Key -->
     <a href="https://wa.me/265990206529?text=Hello%20I%20want%20to%20buy%20a%20redeem%20key%20for%20A%2B%20Learning"
        target="_blank"
-       class="flex items-center justify-center gap-2 mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded transition duration-200">
+       class="flex items-center justify-center gap-2 mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded transition duration-200 text-sm sm:text-base">
 
        💬 Buy Redeem Key on WhatsApp
     </a>

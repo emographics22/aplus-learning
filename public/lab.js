@@ -143,6 +143,7 @@ let selectedQuestions = [];
 let selectedCore = null;
 let timer = null;
 let timeLeft = 0;
+let totalTime = 0;
 let userAnswers = [];
 
 // Display username
@@ -197,18 +198,25 @@ function displayQuestions() {
           class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-yellow-400 focus:outline-none"
           onkeyup="userAnswers[${index}] = this.value"
         >
-        <p class="text-gray-500 text-xs mt-2">Type: ${q.type.toUpperCase()}</p>
+      </div>
+    `;
+  });
+}
       </div>
     `;
   });
 }
 
 // =======================
-// TIMER (30 sec per question)
+// TIMER (30 sec per question - TOTAL TIME FOR ALL QUESTIONS)
 // =======================
 
 function startTimer() {
-  timeLeft = selectedQuestions.length * 30;
+  // Calculate total time: 30 seconds per question
+  totalTime = selectedQuestions.length * 30;
+  timeLeft = totalTime;
+
+  if (timer) clearInterval(timer);
 
   timer = setInterval(() => {
     let minutes = Math.floor(timeLeft / 60);
@@ -217,7 +225,7 @@ function startTimer() {
     document.getElementById('timer').textContent =
       `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
-    // Change color when time is low
+    // Change color when time is low (under 1 minute)
     let timerBox = document.querySelector('.timer-box');
     if (timeLeft <= 60) {
       timerBox.classList.add('timer-warning');
@@ -225,6 +233,7 @@ function startTimer() {
 
     timeLeft--;
 
+    // When time is up
     if (timeLeft < 0) {
       clearInterval(timer);
       submitLab();
