@@ -202,10 +202,6 @@ function displayQuestions() {
     `;
   });
 }
-      </div>
-    `;
-  });
-}
 
 // =======================
 // TIMER (30 sec per question - TOTAL TIME FOR ALL QUESTIONS)
