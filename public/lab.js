@@ -6,116 +6,116 @@ const questionBank = {
   core1: [
     {
       image: "images/rj45.jpg",
-      question: "Which connector is shown? Used for Ethernet networking.",
-      answers: ["rj45", "rj-45", "ethernet connector"]
+      question: "A technician needs to create a Cat6 network cable with this connector. What is the maximum distance this cable can transmit data without degradation?",
+      answers: ["100 meters", "100m", "328 feet"]
     },
     {
       image: "images/hdmi.jpg",
-      question: "What type of cable is this? Used for audio and video transmission.",
-      answers: ["hdmi", "high-definition multimedia interface"]
+      question: "A user has an older monitor that only supports this audio/video standard, but needs 4K resolution. What is the limitation of this connection type?",
+      answers: ["hdmi 1.4", "can't support 4k", "not enough bandwidth"]
     },
     {
       image: "images/vga.jpg",
-      question: "Identify this legacy video port. What is the connector type?",
-      answers: ["vga", "video graphics array"]
+      question: "A company still uses this legacy connector on their 15-year-old CRT monitors. Why should this be replaced for a modern workstation?",
+      answers: ["analog signal", "not digital", "outdated", "no longer supported"]
     },
     {
       image: "images/ram.jpg",
-      question: "Which component is shown? This is volatile memory installed on the motherboard.",
-      answers: ["ram", "memory", "dram"]
+      question: "A computer system with 16 GB of this component is running slowly. Which troubleshooting step should be performed first in Windows?",
+      answers: ["check memory usage", "task manager", "resource monitor"]
     },
     {
       image: "images/psu.jpg",
-      question: "What is this device? It converts AC power from wall outlet to DC power for components.",
-      answers: ["power supply", "psu", "power supply unit"]
+      question: "An IT manager must replace this 550W unit in a server. The new high-end GPU requires 750W. What will happen if they use an undersized replacement?",
+      answers: ["system shutdown", "power failure", "restart", "instability"]
     },
     {
       image: "images/printer.jpg",
-      question: "A user reports they cannot print documents. Identify the device shown.",
-      answers: ["printer"]
+      question: "Multiple users cannot print to this device via network. The device shows offline. Which OSI layer should you troubleshoot first?",
+      answers: ["layer 3", "network layer", "ip", "tcp/ip"]
     },
     {
       image: "images/motherboard.jpg",
-      question: "Identify this main circuit board. All components connect to this.",
-      answers: ["motherboard", "mainboard"]
+      question: "A system exhibits random crashes. POST completes successfully but issues occur under load. Which component on this board likely needs replacement?",
+      answers: ["capacitors", "vrm", "power delivery", "vreg"]
     },
     {
       image: "images/ssd.jpg",
-      question: "What is the primary function of this storage device? It's faster than HDD.",
-      answers: ["ssd", "solid state drive", "storage"]
+      question: "This storage device shows degraded performance after heavy use over 2 years. What maintenance technique can restore performance?",
+      answers: ["trim", "garbage collection", "wear leveling"]
     },
     {
       image: "images/usb.jpg",
-      question: "Identify this universal port used for data and power transfer.",
-      answers: ["usb", "universal serial bus"]
+      question: "A conference room has devices requiring both USB 3.0 and USB 2.0 connectivity simultaneously. Which port type supports backward compatibility?",
+      answers: ["usb 3.0", "usb 3", "type a", "type-a"]
     },
     {
       image: "images/crimper.jpg",
-      question: "What is the purpose of this networking tool? Used to attach connectors to cables.",
-      answers: ["crimper", "cable crimper", "rj45 crimper"]
+      question: "A technician needs to create 50 network cables. What is the correct pin order standard for this tool when making Cat6 cables?",
+      answers: ["568b", "568a", "either 568a or 568b"]
     }
   ],
 
   core2: [
     {
       image: "images/antivirus.jpg",
-      question: "What is the primary purpose of this software? Protects against malicious code.",
-      answers: ["antivirus", "anti-virus", "virus protection"]
+      question: "An employee's system has this protection enabled with real-time scanning. The system slows to a crawl during scanning. What configuration change is appropriate?",
+      answers: ["schedule scans", "off-peak hours", "disable full scan"]
     },
     {
       image: "images/firewall.jpg",
-      question: "Identify this security tool. Blocks unauthorized network access.",
-      answers: ["firewall"]
+      question: "The corporate this security tool is blocking legitimate business traffic on port 3389. Which profile should be modified to allow this remote access?",
+      answers: ["inbound", "inbound rules", "allow inbound"]
     },
     {
       image: "images/windows.jpg",
-      question: "Which operating system is shown? Developed by Microsoft.",
-      answers: ["windows"]
+      question: "An organization runs this OS but needs POSIX compliance for critical applications. How should they implement this compatibility?",
+      answers: ["wsl", "windows subsystem for linux", "linux subsystem"]
     },
     {
       image: "images/linux.jpg",
-      question: "Which operating system is this? Open-source alternative to Windows.",
-      answers: ["linux"]
+      question: "This OS-based server requires a security update. What command views the current kernel version and determines if reboot is needed?",
+      answers: ["uname", "uname -r", "kernel version"]
     },
     {
       image: "images/taskmanager.jpg",
-      question: "What is this Windows utility used for? Manages running processes and applications.",
-      answers: ["task manager", "taskmanager"]
+      question: "An application consumes 95% CPU and hangs the system. Besides terminating it, what determines if the process can be restarted safely?",
+      answers: ["startup type", "service dependencies", "restart recovery"]
     },
     {
       image: "images/cmd.jpg",
-      question: "Identify this command-line interface. Used to execute system commands.",
-      answers: ["command prompt", "cmd", "command line"]
+      question: "A system administrator must disable DHCP and set static IP from this interface. Which command applies TCP/IP settings permanently?",
+      answers: ["ipconfig /setclassid", "netsh", "network settings"]
     },
     {
       image: "images/malware.jpg",
-      question: "What type of threat is shown? Malicious software that damages systems.",
-      answers: ["malware", "virus", "spyware"]
+      question: "A system exhibits unexplained network activity and popup ads despite having protection active. What type of sophisticated threat is likely present?",
+      answers: ["rootkit", "trojan", "spyware", "adware"]
     },
     {
       image: "images/backup.jpg",
-      question: "What is the purpose of this process? Creates copies of important data.",
-      answers: ["backup", "data backup"]
+      question: "A company performs daily incremental backups but loses 5 days of data in a ransomware attack. Why is backup strategy insufficient?",
+      answers: ["offline copy", "immutable", "air-gapped", "no versioning"]
     },
     {
       image: "images/password.jpg",
-      question: "What security measure is shown? Required for user authentication and access control.",
-      answers: ["password", "authentication"]
+      question: "NIST guidelines recommend this security control for sensitive systems. Which implementation adds a second verification factor beyond typed credentials?",
+      answers: ["mfa", "multi-factor authentication", "2fa"]
     },
     {
       image: "images/update.jpg",
-      question: "Why is this important for system security? Patches vulnerabilities and fixes bugs.",
-      answers: ["update", "patch", "security update"]
+      question: "An enterprise delays this critical monthly process due to system stability concerns. What is the actual security risk of this delay?",
+      answers: ["zero-day exploit", "vulnerability", "unpatched systems"]
     },
     {
       image: "images/remote.jpg",
-      question: "What technology allows access to another computer over network connection?",
-      answers: ["remote access", "remote desktop", "rdp"]
+      question: "A technician requires this access to fix a user's computer remotely. What security control should be enabled to prevent credential theft?",
+      answers: ["network encryption", "tls", "ssl", "vpn"]
     },
     {
       image: "images/encryption.jpg",
-      question: "What does this process do? Converts data into secure code to protect privacy.",
-      answers: ["encryption", "encrypt"]
+      question: "Full disk this security measure protects data at rest, but system still performs slowly. What additional configuration is needed to prevent performance impact?",
+      answers: ["hardware acceleration", "tpm", "aes-ni"]
     }
   ]
 };
