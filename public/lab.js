@@ -6,131 +6,116 @@ const questionBank = {
   core1: [
     {
       image: "images/rj45.jpg",
-      question: "Identify this connector",
-      answers: ["rj45", "ethernet"]
+      question: "Which connector is shown? Used for Ethernet networking.",
+      answers: ["rj45", "rj-45", "ethernet connector"]
     },
     {
       image: "images/hdmi.jpg",
-      question: "What is the use of this port?",
-      answers: ["video", "audio", "display"]
+      question: "What type of cable is this? Used for audio and video transmission.",
+      answers: ["hdmi", "high-definition multimedia interface"]
     },
     {
       image: "images/vga.jpg",
-      question: "Identify this port",
-      answers: ["vga"]
+      question: "Identify this legacy video port. What is the connector type?",
+      answers: ["vga", "video graphics array"]
     },
     {
       image: "images/ram.jpg",
-      question: "Where is this component found?",
-      answers: ["motherboard", "computer"]
+      question: "Which component is shown? This is volatile memory installed on the motherboard.",
+      answers: ["ram", "memory", "dram"]
     },
     {
       image: "images/psu.jpg",
-      question: "What is the function of this device?",
-      answers: ["power supply", "convert power"]
-    },
-    {
-      image: "images/router.jpg",
-      question: "What is this device used for?",
-      answers: ["network", "internet", "routing"]
-    },
-    {
-      image: "images/switch.jpg",
-      question: "Identify this networking device",
-      answers: ["switch"]
-    },
-    {
-      image: "images/crimper.jpg",
-      question: "What is the use of this tool?",
-      answers: ["crimp", "attach connector"]
+      question: "What is this device? It converts AC power from wall outlet to DC power for components.",
+      answers: ["power supply", "psu", "power supply unit"]
     },
     {
       image: "images/printer.jpg",
-      question: "User cannot print. Identify the device shown.",
+      question: "A user reports they cannot print documents. Identify the device shown.",
       answers: ["printer"]
     },
     {
       image: "images/motherboard.jpg",
-      question: "Where is this found?",
-      answers: ["computer", "system unit"]
+      question: "Identify this main circuit board. All components connect to this.",
+      answers: ["motherboard", "mainboard"]
     },
     {
       image: "images/ssd.jpg",
-      question: "What is the purpose of this device?",
-      answers: ["storage", "data storage"]
+      question: "What is the primary function of this storage device? It's faster than HDD.",
+      answers: ["ssd", "solid state drive", "storage"]
     },
     {
       image: "images/usb.jpg",
-      question: "Identify this port",
-      answers: ["usb"]
+      question: "Identify this universal port used for data and power transfer.",
+      answers: ["usb", "universal serial bus"]
     },
     {
-      image: "images/fiber.jpg",
-      question: "What type of cable is this?",
-      answers: ["fiber", "fiber optic"]
+      image: "images/crimper.jpg",
+      question: "What is the purpose of this networking tool? Used to attach connectors to cables.",
+      answers: ["crimper", "cable crimper", "rj45 crimper"]
     }
   ],
 
   core2: [
     {
       image: "images/antivirus.jpg",
-      question: "What is the purpose of this tool?",
-      answers: ["security", "virus protection", "antivirus"]
+      question: "What is the primary purpose of this software? Protects against malicious code.",
+      answers: ["antivirus", "anti-virus", "virus protection"]
     },
     {
       image: "images/firewall.jpg",
-      question: "Blocks unauthorized access. Identify it.",
+      question: "Identify this security tool. Blocks unauthorized network access.",
       answers: ["firewall"]
     },
     {
       image: "images/windows.jpg",
-      question: "Identify this operating system",
+      question: "Which operating system is shown? Developed by Microsoft.",
       answers: ["windows"]
     },
     {
       image: "images/linux.jpg",
-      question: "Identify this operating system",
+      question: "Which operating system is this? Open-source alternative to Windows.",
       answers: ["linux"]
     },
     {
       image: "images/taskmanager.jpg",
-      question: "What is this tool used for?",
-      answers: ["manage processes", "task manager"]
+      question: "What is this Windows utility used for? Manages running processes and applications.",
+      answers: ["task manager", "taskmanager"]
     },
     {
       image: "images/cmd.jpg",
-      question: "Identify this tool",
-      answers: ["command prompt", "cmd"]
+      question: "Identify this command-line interface. Used to execute system commands.",
+      answers: ["command prompt", "cmd", "command line"]
     },
     {
       image: "images/malware.jpg",
-      question: "This software harms your system. What is it?",
-      answers: ["malware", "virus"]
+      question: "What type of threat is shown? Malicious software that damages systems.",
+      answers: ["malware", "virus", "spyware"]
     },
     {
       image: "images/backup.jpg",
-      question: "What is the purpose of this process?",
-      answers: ["backup", "data protection"]
+      question: "What is the purpose of this process? Creates copies of important data.",
+      answers: ["backup", "data backup"]
     },
     {
       image: "images/password.jpg",
-      question: "What is this used for?",
-      answers: ["security", "authentication"]
+      question: "What security measure is shown? Required for user authentication and access control.",
+      answers: ["password", "authentication"]
     },
     {
       image: "images/update.jpg",
-      question: "Why is this important?",
-      answers: ["security", "updates", "fix bugs"]
+      question: "Why is this important for system security? Patches vulnerabilities and fixes bugs.",
+      answers: ["update", "patch", "security update"]
     },
     {
       image: "images/remote.jpg",
-      question: "User accesses another computer remotely. What is this?",
-      answers: ["remote access", "remote desktop"]
+      question: "What technology allows access to another computer over network connection?",
+      answers: ["remote access", "remote desktop", "rdp"]
     },
     {
       image: "images/encryption.jpg",
-      question: "What does this process do?",
-      answers: ["encrypt", "security", "protect data"]
+      question: "What does this process do? Converts data into secure code to protect privacy.",
+      answers: ["encryption", "encrypt"]
     }
   ]
 };
