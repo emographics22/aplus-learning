@@ -136,30 +136,5 @@ function saveScoreToServer(finalScore) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(scoreData)
-  }).catch(err => console.log('Score saved locally:', finalScore));
+  }).catch(err => console.log('Score saved:', finalScore));
 }
-  } else {
-    quizContainer.innerHTML = `
-      <div class="text-center">
-        <h2 class="text-2xl text-yellow-400 font-bold mb-4">Quiz Finished!</h2>
-        <p class="text-white text-lg mb-4">Your score: <span class="font-bold">${score}</span> / ${qArray.length}</p>
-        <button id="backBtn" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-6 rounded transition duration-200">
-          Back to Dashboard
-        </button>
-      </div>
-    `;
-    
-    scoreText.textContent = "";
-
-    // Save score in localStorage
-    let userScores = JSON.parse(localStorage.getItem('quizScores') || "{}");
-    if(!userScores[selectedTopic]) userScores[selectedTopic] = {};
-    userScores[selectedTopic][selectedQuiz] = score;
-    localStorage.setItem('quizScores', JSON.stringify(userScores));
-
-    // Back to Dashboard button
-    document.getElementById('backBtn').onclick = () => {
-      window.location.href = 'dashboard.html';
-    };
-  }
-};

@@ -576,16 +576,7 @@ let quizzes = {
       { question: "Which anti-virus feature blocks malware proactively?", options: ["Real-time protection","Event Viewer","Disk Cleanup","Task Manager"], answer: "Real-time protection" },
       { question: "Which command flushes DNS cache?", options: ["ipconfig /flushdns","ping","tracert","netstat"], answer: "ipconfig /flushdns" },
       { question: "Which Windows tool displays logs?", options: ["Event Viewer","Task Manager","Disk Cleanup","File History"], answer: "Event Viewer" },
-      { question: "Which malware displays unwanted ads?", options: ["Adware","Ransomware","Spyware","Rootkit"], answer: "Adware" },
-      { question: "Which protocol encrypts emails?", options: ["SMTP with TLS","POP3","IMAP","FTP"], answer: "SMTP with TLS" },
-      { question: "Which Windows tool restores previous versions?", options: ["File History","Task Manager","Disk Cleanup","Event Viewer"], answer: "File History" },
-      { question: "Which password is most secure?", options: ["Long passphrase","123456","password","admin"], answer: "Long passphrase" },
-      { question: "Which malware spreads via email attachments?", options: ["Worm","Virus","Trojan","Spyware"], answer: "Worm" },
-      { question: "Which command shows IP configuration?", options: ["ipconfig","ping","tracert","netstat"], answer: "ipconfig" },
-      { question: "Which malware disguises itself as legitimate software?", options: ["Trojan","Virus","Worm","Adware"], answer: "Trojan" },
-      { question: "Which command shows active connections?", options: ["netstat","ipconfig","ping","tracert"], answer: "netstat" },
-      { question: "Which Windows tool monitors scheduled tasks?", options: ["Task Scheduler","Task Manager","Event Viewer","Disk Management"], answer: "Task Scheduler" },
-      { question: "Which Windows tool checks disk integrity?", options: ["chkdsk","sfc","diskpart","taskmgr"], answer: "chkdsk" }
+      { question: "Which malware displays unwanted ads?", options: ["Adware","Ransomware","Spyware","Rootkit"], answer: "Adware" }
     ]
   }
 };
