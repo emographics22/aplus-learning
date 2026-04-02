@@ -6,116 +6,116 @@ const questionBank = {
   core1: [
     {
       image: "images/rj45.jpg",
-      question: "A technician needs to create a Cat6 network cable with this connector. What is the maximum distance this cable can transmit data without degradation?",
-      answers: ["100 meters", "100m", "328 feet"]
+      question: "What is the name of this network connector commonly used for Ethernet cables?",
+      answers: ["rj45", "rj-45", "ethernet connector"]
     },
     {
       image: "images/hdmi.jpg",
-      question: "A user has an older monitor that only supports this audio/video standard, but needs 4K resolution. What is the limitation of this connection type?",
-      answers: ["hdmi 1.4", "can't support 4k", "not enough bandwidth"]
+      question: "This cable is used to connect to modern displays and TVs. What is it called?",
+      answers: ["hdmi", "high-definition multimedia interface"]
     },
     {
       image: "images/vga.jpg",
-      question: "A company still uses this legacy connector on their 15-year-old CRT monitors. Why should this be replaced for a modern workstation?",
-      answers: ["analog signal", "not digital", "outdated", "no longer supported"]
+      question: "This video connector is older and found on legacy monitors. What standard is this?",
+      answers: ["vga", "video graphics array"]
     },
     {
       image: "images/ram.jpg",
-      question: "A computer system with 16 GB of this component is running slowly. Which troubleshooting step should be performed first in Windows?",
-      answers: ["check memory usage", "task manager", "resource monitor"]
+      question: "This component is installed directly on the motherboard and stores temporary data while the computer runs. What is it?",
+      answers: ["ram", "memory", "dram"]
     },
     {
       image: "images/psu.jpg",
-      question: "An IT manager must replace this 550W unit in a server. The new high-end GPU requires 750W. What will happen if they use an undersized replacement?",
-      answers: ["system shutdown", "power failure", "restart", "instability"]
+      question: "This device supplies power to all components inside the computer. What is this called?",
+      answers: ["power supply", "psu", "power supply unit"]
     },
     {
       image: "images/printer.jpg",
-      question: "Multiple users cannot print to this device via network. The device shows offline. Which OSI layer should you troubleshoot first?",
-      answers: ["layer 3", "network layer", "ip", "tcp/ip"]
+      question: "A user cannot print their documents. Which output device shown is likely having the problem?",
+      answers: ["printer"]
     },
     {
       image: "images/motherboard.jpg",
-      question: "A system exhibits random crashes. POST completes successfully but issues occur under load. Which component on this board likely needs replacement?",
-      answers: ["capacitors", "vrm", "power delivery", "vreg"]
+      question: "This is the main circuit board where all computer components connect. What is it called?",
+      answers: ["motherboard", "mainboard"]
     },
     {
       image: "images/ssd.jpg",
-      question: "This storage device shows degraded performance after heavy use over 2 years. What maintenance technique can restore performance?",
-      answers: ["trim", "garbage collection", "wear leveling"]
+      question: "This storage device stores files and data. It has no moving parts and is faster than older drives. What type is it?",
+      answers: ["ssd", "solid state drive"]
     },
     {
       image: "images/usb.jpg",
-      question: "A conference room has devices requiring both USB 3.0 and USB 2.0 connectivity simultaneously. Which port type supports backward compatibility?",
-      answers: ["usb 3.0", "usb 3", "type a", "type-a"]
+      question: "This is a common port used to connect keyboards, mice, and removable storage. What standard is this?",
+      answers: ["usb", "universal serial bus"]
     },
     {
       image: "images/crimper.jpg",
-      question: "A technician needs to create 50 network cables. What is the correct pin order standard for this tool when making Cat6 cables?",
-      answers: ["568b", "568a", "either 568a or 568b"]
+      question: "This tool is used by network technicians to attach connectors to the ends of network cables. What is it called?",
+      answers: ["crimper", "cable crimper"]
     }
   ],
 
   core2: [
     {
       image: "images/antivirus.jpg",
-      question: "An employee's system has this protection enabled with real-time scanning. The system slows to a crawl during scanning. What configuration change is appropriate?",
-      answers: ["schedule scans", "off-peak hours", "disable full scan"]
+      question: "This security software scans files and programs to detect and remove viruses. What is it called?",
+      answers: ["antivirus", "anti-virus", "virus protection"]
     },
     {
       image: "images/firewall.jpg",
-      question: "The corporate this security tool is blocking legitimate business traffic on port 3389. Which profile should be modified to allow this remote access?",
-      answers: ["inbound", "inbound rules", "allow inbound"]
+      question: "This security tool monitors and controls incoming and outgoing network traffic on a computer. What is it?",
+      answers: ["firewall"]
     },
     {
       image: "images/windows.jpg",
-      question: "An organization runs this OS but needs POSIX compliance for critical applications. How should they implement this compatibility?",
-      answers: ["wsl", "windows subsystem for linux", "linux subsystem"]
+      question: "This operating system is created by Microsoft and used on most office computers. What is it?",
+      answers: ["windows"]
     },
     {
       image: "images/linux.jpg",
-      question: "This OS-based server requires a security update. What command views the current kernel version and determines if reboot is needed?",
-      answers: ["uname", "uname -r", "kernel version"]
+      question: "This is a free, open-source operating system popular on servers and developer machines. What is it?",
+      answers: ["linux"]
     },
     {
       image: "images/taskmanager.jpg",
-      question: "An application consumes 95% CPU and hangs the system. Besides terminating it, what determines if the process can be restarted safely?",
-      answers: ["startup type", "service dependencies", "restart recovery"]
+      question: "In Windows, this tool shows running programs and how much memory and CPU each one is using. What is it?",
+      answers: ["task manager", "taskmanager"]
     },
     {
       image: "images/cmd.jpg",
-      question: "A system administrator must disable DHCP and set static IP from this interface. Which command applies TCP/IP settings permanently?",
-      answers: ["ipconfig /setclassid", "netsh", "network settings"]
+      question: "This is a text-based interface where IT professionals type commands to control the computer. What is it called?",
+      answers: ["command prompt", "cmd", "command line"]
     },
     {
       image: "images/malware.jpg",
-      question: "A system exhibits unexplained network activity and popup ads despite having protection active. What type of sophisticated threat is likely present?",
-      answers: ["rootkit", "trojan", "spyware", "adware"]
+      question: "This is harmful software designed to damage or compromise a computer system. What term describes it?",
+      answers: ["malware", "virus", "spyware"]
     },
     {
       image: "images/backup.jpg",
-      question: "A company performs daily incremental backups but loses 5 days of data in a ransomware attack. Why is backup strategy insufficient?",
-      answers: ["offline copy", "immutable", "air-gapped", "no versioning"]
+      question: "Creating this protects against data loss by storing copies of important files. What is the process called?",
+      answers: ["backup", "data backup"]
     },
     {
       image: "images/password.jpg",
-      question: "NIST guidelines recommend this security control for sensitive systems. Which implementation adds a second verification factor beyond typed credentials?",
-      answers: ["mfa", "multi-factor authentication", "2fa"]
+      question: "This secret code is required to log into computer accounts and protect from unauthorized access. What is it?",
+      answers: ["password", "authentication"]
     },
     {
       image: "images/update.jpg",
-      question: "An enterprise delays this critical monthly process due to system stability concerns. What is the actual security risk of this delay?",
-      answers: ["zero-day exploit", "vulnerability", "unpatched systems"]
+      question: "The system regularly installs these to fix bugs and security vulnerabilities. What are they called?",
+      answers: ["update", "patch", "security update"]
     },
     {
       image: "images/remote.jpg",
-      question: "A technician requires this access to fix a user's computer remotely. What security control should be enabled to prevent credential theft?",
-      answers: ["network encryption", "tls", "ssl", "vpn"]
+      question: "This technology allows a technician to access and control a computer from another location. What is it called?",
+      answers: ["remote access", "remote desktop", "rdp"]
     },
     {
       image: "images/encryption.jpg",
-      question: "Full disk this security measure protects data at rest, but system still performs slowly. What additional configuration is needed to prevent performance impact?",
-      answers: ["hardware acceleration", "tpm", "aes-ni"]
+      question: "This process converts data into a code so only authorized people with the key can read it. What is it called?",
+      answers: ["encryption", "encrypt"]
     }
   ]
 };
