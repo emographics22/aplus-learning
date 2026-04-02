@@ -16,8 +16,14 @@
       <input id="username" placeholder="Username"
         class="w-full p-2 mb-3 rounded bg-gray-800 text-white border border-gray-700">
 
-      <input id="password" type="password" placeholder="Password"
-        class="w-full p-2 mb-4 rounded bg-gray-800 text-white border border-gray-700">
+      <div class="relative mb-4">
+        <input id="password" type="password" placeholder="Password"
+          class="w-full p-2 rounded bg-gray-800 text-white border border-gray-700 pr-10">
+        <button type="button" id="togglePassword"
+          class="absolute right-2 top-2 text-gray-400 hover:text-yellow-400 text-sm font-bold">
+          Show
+        </button>
+      </div>
 
       <button type="submit"
         class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded">
@@ -25,9 +31,31 @@
       </button>
     </form>
 
+    <p class="text-gray-400 text-sm mt-4">
+      Don't have an account?
+      <a href="register.html" class="text-yellow-400 hover:text-yellow-300 underline font-bold">
+        Register here
+      </a>
+    </p>
+
   </div>
 
   <!-- Separate JavaScript -->
+  <script>
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+
+    togglePassword.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        togglePassword.textContent = 'Hide';
+      } else {
+        passwordInput.type = 'password';
+        togglePassword.textContent = 'Show';
+      }
+    });
+  </script>
   <script src="login.js"></script>
 
 </body>
