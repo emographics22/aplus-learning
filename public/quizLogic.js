@@ -1,140 +1,256 @@
-// quizLogic.js
+// quizLogic.js - Complete Quiz System
+
+// Get elements
 const topicContainer = document.getElementById('topics');
 const quizList = document.getElementById('quiz-list');
 const quizzesDiv = document.getElementById('quizzes');
 const quizContainer = document.getElementById('quiz-container');
+const resultsContainer = document.getElementById('results-container');
 const nextBtn = document.getElementById('next-btn');
-const scoreText = document.getElementById('score-text');
+const userDisplay = document.getElementById('userDisplay');
 
+// Progress tracking
 let selectedTopic;
 let selectedQuiz;
 let currentQuestion = 0;
 let score = 0;
 let username = localStorage.getItem('username') || 'unknown';
+let currentQuizData = [];
 
-// Show topics
+// Display username
+userDisplay.textContent = username;
+
+// ==== SECTION 1: LOAD USER SCORES FROM SERVER ====
+let userScores = [];
+
+async function loadUserScores() {
+  try {
+    const response = await fetch(`/get-scores/${username}`);
+    userScores = await response.json() || [];
+  } catch (e) {
+    userScores = [];
+  }
+}
+
+loadUserScores();
+
+// ==== SECTION 2: SHOW TOPICS WITH TAG ====
 Object.keys(quizzes).forEach(topic => {
   const btn = document.createElement('button');
-  btn.textContent = topic;
-  btn.className = "w-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 rounded mb-2 transition duration-200";
+  btn.className = "w-full bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white font-bold py-4 rounded-lg transition duration-200 text-lg";
   btn.onclick = () => {
     selectedTopic = topic;
     showQuizList(topic);
   };
+  
+  // Count passed quizzes for this topic
+  const topicScores = userScores.filter(s => s.topic === topic);
+  const passedCount = topicScores.filter(s => (s.score / s.total * 100) >= 70).length;
+  const totalCount = Object.keys(quizzes[topic]).length;
+  
+  const statusTag = passedCount > 0 ? `<span class="text-green-400 ml-2">✅ ${passedCount}/${totalCount} passed</span>` : '';
+  btn.innerHTML = `${topic}${statusTag}`;
+  
   topicContainer.appendChild(btn);
 });
 
-// Show quizzes for selected topic
+// ==== SECTION 3: SHOW QUIZZES FOR SELECTED TOPIC ====
 function showQuizList(topic) {
   document.getElementById('topic-selection').classList.add('hidden');
   quizList.classList.remove('hidden');
   quizzesDiv.innerHTML = '';
+  
+  // Topic header
+  document.getElementById('topicHeader').innerHTML = `
+    <h2 class="text-2xl text-yellow-400 font-bold mb-4">${topic}</h2>
+  `;
+  
   Object.keys(quizzes[topic]).forEach(qName => {
     const btn = document.createElement('button');
-    btn.textContent = qName;
-    btn.className = "w-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 rounded mb-2 transition duration-200";
-    btn.onclick = () => startQuiz(qName);
+    btn.className = "relative bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white font-bold py-6 rounded-lg transition duration-200 text-center";
+    
+    // Find score for this quiz
+    const scoreRecord = userScores.find(s => s.topic === topic && s.quiz === qName);
+    const percentage = scoreRecord ? Math.round((scoreRecord.score / scoreRecord.total) * 100) : 0;
+    const isPassed = percentage >= 70;
+    
+    let badge = '';
+    if (scoreRecord) {
+      badge = isPassed 
+        ? `<div class="absolute top-2 right-2 bg-green-500 text-black text-xs font-bold px-2 py-1 rounded">✅ ${percentage}%</div>`
+        : `<div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">❌ ${percentage}%</div>`;
+    }
+    
+    btn.innerHTML = `${badge}<div class="text-lg">${qName}</div><div class="text-xs text-gray-400 mt-2">${Object.keys(quizzes[topic][qName]).length} Questions</div>`;
+    btn.onclick = () => startQuiz(qName, topic);
     quizzesDiv.appendChild(btn);
   });
 }
 
-// Start selected quiz
-function startQuiz(qName) {
+// Back to topics button
+document.getElementById('backBtn').onclick = () => {
+  quizList.classList.add('hidden');
+  quizContainer.classList.add('hidden');
+  resultsContainer.classList.add('hidden');
+  document.getElementById('topic-selection').classList.remove('hidden');
+  resetQuiz();
+};
+
+// ==== SECTION 4: START QUIZ ====
+function startQuiz(qName, topic) {
   selectedQuiz = qName;
+  selectedTopic = topic;
   quizList.classList.add('hidden');
   quizContainer.classList.remove('hidden');
-  nextBtn.classList.add('hidden'); // hide Next until selection
+  resultsContainer.classList.add('hidden');
+  
+  currentQuizData = quizzes[topic][qName];
   currentQuestion = 0;
   score = 0;
+  
   showQuestion();
 }
 
-// Show question
+// ==== SECTION 5: SHOW QUESTION WITH PROGRESS ====
 function showQuestion() {
-  const qArray = quizzes[selectedTopic][selectedQuiz];
-  const q = qArray[currentQuestion];
+  const q = currentQuizData[currentQuestion];
+  const totalQuestions = currentQuizData.length;
+  const progressPercent = Math.round(((currentQuestion) / totalQuestions) * 100);
   
-  quizContainer.innerHTML = `
-    <h2 class="text-xl text-yellow-400 font-bold mb-4">${q.question}</h2>
-    <div class="grid grid-cols-1 gap-3" id="options-container">
-      ${q.options.map(opt => `
-        <button class="option w-full p-3 rounded bg-gray-800 hover:bg-gray-700 text-white text-left text-lg font-semibold transition duration-200">${opt}</button>`).join('')}
-    </div>
-  `;
-
-  const optionButtons = document.querySelectorAll(".option");
-
-  optionButtons.forEach(btn => {
-    btn.onclick = () => {
-      // Disable all buttons
-      optionButtons.forEach(b => b.disabled = true);
-
-      // Highlight selected answer
-      btn.classList.add("ring-4", "ring-yellow-400");
-
-      // Highlight correct/incorrect answers
-      optionButtons.forEach(b => {
-        if(b.textContent === q.answer) {
-          b.classList.add("bg-green-500", "text-black");
-        } else if(b !== btn) {
-          b.classList.add("bg-red-500", "text-black");
-        }
-      });
-
-      // Increment score if correct
-      if(btn.textContent === q.answer) score++;
-
-      // Show Next button
-      nextBtn.classList.remove('hidden');
-    };
+  // Update progress bar
+  document.getElementById('progressNum').textContent = currentQuestion + 1;
+  document.getElementById('totalNum').textContent = totalQuestions;
+  document.getElementById('progressPercent').textContent = progressPercent + '%';
+  document.getElementById('progressBar').style.width = progressPercent + '%';
+  
+  document.getElementById('question').textContent = q.question;
+  document.getElementById('options-container').innerHTML = '';
+  
+  const optionsContainer = document.getElementById('options-container');
+  
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.textContent = opt;
+    btn.className = "option w-full p-4 rounded-lg bg-gray-800 hover:bg-gray-700 text-white text-left font-semibold transition duration-200 border-2 border-transparent";
+    
+    btn.onclick = () => selectAnswer(btn, opt, q.answer, optionsContainer, totalQuestions);
+    optionsContainer.appendChild(btn);
   });
+  
+  nextBtn.classList.add('hidden');
 }
 
-// Next button click
-nextBtn.onclick = () => {
-  const qArray = quizzes[selectedTopic][selectedQuiz];
-  currentQuestion++;
-  nextBtn.classList.add('hidden'); // hide Next until next selection
-
-  if(currentQuestion < qArray.length) {
-    showQuestion();
-    scoreText.textContent = "";
+// ==== SECTION 6: SELECT ANSWER ====
+function selectAnswer(btn, selected, correctAnswer, container, totalQuestions) {
+  const allButtons = document.querySelectorAll('.option');
+  
+  // Disable all buttons
+  allButtons.forEach(b => b.disabled = true);
+  
+  // Mark selected answer
+  if (selected === correctAnswer) {
+    btn.classList.add('bg-green-600', 'border-green-400');
+    score++;
   } else {
-    quizContainer.innerHTML = `
-      <div class="text-center">
-        <h2 class="text-2xl text-yellow-400 font-bold mb-4">Quiz Finished!</h2>
-        <p class="text-white text-lg mb-4">Your score: <span class="font-bold">${score}</span> / ${qArray.length}</p>
-        <button id="backBtn" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-6 rounded transition duration-200">
-          Back to Dashboard
-        </button>
-      </div>
-    `;
-    
-    scoreText.textContent = "";
+    btn.classList.add('bg-red-600', 'border-red-400');
+  }
+  
+  // Highlight correct answer
+  allButtons.forEach(b => {
+    if (b.textContent === correctAnswer && b !== btn) {
+      b.classList.add('bg-green-600', 'border-green-400');
+    }
+  });
+  
+  nextBtn.classList.remove('hidden');
+}
 
-    // Save score to server with username
-    saveScoreToServer(score);
-
-    // Back to Dashboard button
-    document.getElementById('backBtn').onclick = () => {
-      window.location.href = 'dashboard.html';
-    };
+// ==== SECTION 7: NEXT QUESTION ====
+nextBtn.onclick = () => {
+  const totalQuestions = currentQuizData.length;
+  currentQuestion++;
+  
+  if (currentQuestion < totalQuestions) {
+    showQuestion();
+  } else {
+    showResults();
   }
 };
 
-// Save score to server
+// ==== SECTION 8: SHOW RESULTS ====
+function showResults() {
+  quizContainer.classList.add('hidden');
+  resultsContainer.classList.remove('hidden');
+  
+  const totalQuestions = currentQuizData.length;
+  const percentage = Math.round((score / totalQuestions) * 100);
+  const isPassed = percentage >= 70;
+  
+  // Final score display
+  document.getElementById('finalScore').textContent = score;
+  
+  // Progress bar
+  const progressWidth = (score / totalQuestions) * 100;
+  document.getElementById('finalProgressBar').style.width = progressWidth + '%';
+  document.getElementById('finalProgressBar').className = isPassed ? 'bg-green-500 h-4 rounded-full' : 'bg-red-500 h-4 rounded-full';
+  
+  // Status
+  document.getElementById('resultStatus').textContent = isPassed ? '✅ PASSED' : '❌ FAILED';
+  document.getElementById('resultStatus').className = isPassed ? 'text-green-400' : 'text-red-400';
+  
+  // Statistics
+  document.getElementById('percentDisplay').textContent = percentage + '%';
+  document.getElementById('passFailDisplay').textContent = isPassed ? 'PASSED' : 'FAILED';
+  document.getElementById('passFailDisplay').className = isPassed ? 'text-green-400' : 'text-red-400';
+  document.getElementById('correctDisplay').textContent = score;
+  
+  // Save score to server
+  saveScoreToServer(score);
+  
+  // Retake quiz button
+  document.getElementById('retakeBtn').onclick = () => {
+    resultsContainer.classList.add('hidden');
+    quizContainer.classList.remove('hidden');
+    currentQuestion = 0;
+    score = 0;
+    showQuestion();
+  };
+  
+  // Back to quizzes button
+  document.getElementById('backDashBtn').onclick = () => {
+    resultsContainer.classList.add('hidden');
+    quizList.classList.remove('hidden');
+    showQuizList(selectedTopic);
+    resetQuiz();
+  };
+}
+
+// ==== SECTION 9: SAVE SCORE TO SERVER ====
 function saveScoreToServer(finalScore) {
   const scoreData = {
     username: username,
     topic: selectedTopic,
     quiz: selectedQuiz,
     score: finalScore,
-    total: quizzes[selectedTopic][selectedQuiz].length
+    total: currentQuizData.length
   };
   
   fetch('/save-score', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(scoreData)
-  }).catch(err => console.log('Score saved:', finalScore));
+  }).then(() => {
+    // Add to local cache
+    userScores.push(scoreData);
+  }).catch(err => console.log('Error saving score:', err));
+}
+
+// ==== SECTION 10: RESET QUIZ ====
+function resetQuiz() {
+  currentQuestion = 0;
+  score = 0;
+  selectedQuiz = null;
+  selectedTopic = null;
+  currentQuizData = [];
+  nextBtn.classList.add('hidden');
 }

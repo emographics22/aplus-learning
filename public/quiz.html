@@ -5,32 +5,110 @@
   <title>Quiz - A+ Learning</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-black text-white flex items-center justify-center min-h-screen">
+<body class="bg-black text-white min-h-screen p-4">
 
-<div class="bg-gray-900 p-8 rounded-3xl shadow-2xl w-96">
+<div class="max-w-3xl mx-auto">
 
-  <h1 class="text-3xl text-yellow-400 font-bold mb-6 text-center">A+ Quiz</h1>
-
-  <!-- Topic Selection -->
-  <div id="topic-selection" class="mb-6">
-    <h2 class="text-yellow-400 font-bold mb-3">Select a Topic:</h2>
-    <div id="topics"></div>
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-4xl text-yellow-400 font-bold">A+ Quiz</h1>
+      <a href="dashboard.html" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-1 px-4 rounded">
+        ← Dashboard
+      </a>
+    </div>
+    <p class="text-gray-400">User: <span id="userDisplay" class="text-yellow-300 font-bold"></span></p>
   </div>
 
-  <!-- Quiz Selection -->
-  <div id="quiz-list" class="mb-6 hidden">
-    <h2 class="text-yellow-400 font-bold mb-3">Select a Quiz:</h2>
-    <div id="quizzes"></div>
+  <!-- Topic Selection -->
+  <div id="topic-selection" class="bg-gray-900 p-6 rounded-3xl shadow-2xl">
+    <h2 class="text-2xl text-yellow-400 font-bold mb-6 text-center">Select a Topic</h2>
+    <div id="topics" class="grid grid-cols-1 gap-4"></div>
+  </div>
+
+  <!-- Quiz Selection with Progress -->
+  <div id="quiz-list" class="hidden">
+    <!-- Back Button -->
+    <button id="backBtn" class="mb-6 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded transition">
+      ← Back to Topics
+    </button>
+    
+    <!-- Topic Header -->
+    <div id="topicHeader" class="mb-6"></div>
+
+    <!-- Quizzes Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quizzes"></div>
   </div>
 
   <!-- Quiz Container -->
-  <div id="quiz-container" class="mb-4"></div>
+  <div id="quiz-container" class="hidden bg-gray-900 p-8 rounded-3xl shadow-2xl">
+    <!-- Progress Bar -->
+    <div class="mb-8">
+      <div class="flex justify-between mb-2">
+        <span class="text-gray-300 text-sm">Question <span id="progressNum">1</span> of <span id="totalNum">10</span></span>
+        <span class="text-yellow-400 font-bold" id="progressPercent">0%</span>
+      </div>
+      <div class="w-full bg-gray-700 rounded-full h-3">
+        <div id="progressBar" class="bg-yellow-400 h-3 rounded-full transition-all duration-300 w-0"></div>
+      </div>
+    </div>
 
-  <!-- Next Button -->
-  <button id="next-btn" class="hidden w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded mb-3 transition duration-200">Next</button>
+    <!-- Question -->
+    <div class="mb-8">
+      <h2 id="question" class="text-2xl text-yellow-300 font-bold mb-6"></h2>
+      <div id="options-container" class="grid grid-cols-1 gap-3"></div>
+    </div>
 
-  <!-- Score -->
-  <p id="score-text" class="text-center text-gray-400"></p>
+    <!-- Next Button -->
+    <button id="next-btn" class="hidden w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded-lg transition duration-200 text-lg">
+      Next Question
+    </button>
+  </div>
+
+  <!-- Results Screen -->
+  <div id="results-container" class="hidden bg-gray-900 p-8 rounded-3xl shadow-2xl">
+    <div class="text-center">
+      <h2 class="text-4xl text-yellow-400 font-bold mb-6">Quiz Complete! 🎉</h2>
+      
+      <!-- Score Display -->
+      <div class="bg-gray-800 p-8 rounded-2xl mb-8">
+        <p class="text-gray-300 text-lg mb-2">Your Score</p>
+        <p class="text-6xl font-bold mb-4">
+          <span id="finalScore" class="text-yellow-400">0</span><span class="text-3xl text-gray-400">/10</span>
+        </p>
+        <div class="w-full bg-gray-700 rounded-full h-4 mb-4">
+          <div id="finalProgressBar" class="bg-green-500 h-4 rounded-full"></div>
+        </div>
+        <p class="text-2xl font-bold" id="resultStatus"></p>
+      </div>
+
+      <!-- Statistics -->
+      <div class="grid grid-cols-3 gap-4 mb-8">
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <p class="text-gray-400 text-sm mb-1">Percentage</p>
+          <p class="text-2xl font-bold text-yellow-400" id="percentDisplay">0%</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <p class="text-gray-400 text-sm mb-1">Status</p>
+          <p class="text-xl font-bold" id="passFailDisplay">-</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <p class="text-gray-400 text-sm mb-1">Correct</p>
+          <p class="text-2xl font-bold text-green-400" id="correctDisplay">0</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <button id="retakeBtn" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded-lg transition duration-200">
+          Retake Quiz
+        </button>
+        <button id="backDashBtn" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 rounded-lg transition duration-200">
+          Back to Quizzes
+        </button>
+      </div>
+    </div>
+  </div>
 
 </div>
 

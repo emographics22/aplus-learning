@@ -17,12 +17,6 @@
       </button>
     </header>
 
-    <!-- Quiz Progress -->
-    <div class="bg-gray-900 p-4 rounded-2xl mb-8 shadow-lg">
-      <h2 class="text-xl text-yellow-400 font-bold mb-2">Your Quiz Progress</h2>
-      <ul id="quizProgress" class="text-gray-400"></ul>
-    </div>
-
     <!-- Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -50,15 +44,6 @@
         <p class="text-gray-400 mb-4">Practice real-life lab scenarios for hands-on learning.</p>
         <a href="labs.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center">
           Start Labs
-        </a>
-      </div>
-
-      <!-- Progress Card -->
-      <div class="bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
-        <h2 class="text-xl text-yellow-400 font-bold mb-2">📊 Progress</h2>
-        <p class="text-gray-400 mb-4">Track your quiz scores and performance by topic.</p>
-        <a href="progress.html" class="w-full inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded text-center">
-          View Progress
         </a>
       </div>
 
@@ -100,7 +85,6 @@
       </div>
     </div>
 
-<script src="quizzes.js"></script>
 <script>
 // Show username
 const username = localStorage.getItem('username') || "Student";
@@ -111,45 +95,6 @@ document.getElementById('logoutBtn').onclick = () => {
   localStorage.removeItem('username');
   window.location = 'login.html';
 };
-
-// Display user-specific quiz progress
-const progressList = document.getElementById('quizProgress');
-
-async function loadUserProgress() {
-  try {
-    const response = await fetch(`/get-scores/${username}`);
-    const scores = await response.json();
-    
-    if(scores.length === 0) {
-      progressList.innerHTML = "<li>No quizzes taken yet.</li>";
-    } else {
-      progressList.innerHTML = "";
-      const grouped = {};
-      
-      // Group scores by topic
-      scores.forEach(score => {
-        if (!grouped[score.topic]) grouped[score.topic] = [];
-        grouped[score.topic].push(score);
-      });
-      
-      // Display scores by topic
-      for(const topic in grouped) {
-        const topicScores = grouped[topic];
-        const totalQuizzes = topicScores.length;
-        const passingQuizzes = topicScores.filter(s => (s.score / s.total * 100) >= 70).length;
-        
-        const li = document.createElement('li');
-        li.textContent = `${topic}: ${passingQuizzes}/${totalQuizzes} passed ✅`;
-        li.className = "text-gray-300 mb-2";
-        progressList.appendChild(li);
-      }
-    }
-  } catch (e) {
-    progressList.innerHTML = "<li>Error loading progress</li>";
-  }
-}
-
-loadUserProgress();
 </script>
 
 </body>
