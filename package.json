@@ -1,20 +1,19 @@
 {
   "name": "aplus-learning",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "CompTIA A+ Learning Platform with quizzes and study materials",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "build": "echo 'Build complete'"
+    "test": "echo \"Tests not yet implemented\" && exit 0"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Emo Graphics",
   "license": "ISC",
   "type": "commonjs",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^5.2.1",
-    "serverless-http": "^3.2.0"
+    "express": "^5.2.1"
   }
 }

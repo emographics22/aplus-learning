@@ -9,6 +9,20 @@ app.use(express.static('public'));
 const keysFilePath = path.join(__dirname, 'keys.json');
 const usersFilePath = path.join(__dirname, 'users.json');
 
+// Initialize JSON files if they don't exist
+function initializeFiles() {
+  if (!fs.existsSync(keysFilePath)) {
+    fs.writeFileSync(keysFilePath, JSON.stringify([], null, 2));
+    console.log('✅ Created keys.json');
+  }
+  if (!fs.existsSync(usersFilePath)) {
+    fs.writeFileSync(usersFilePath, JSON.stringify([], null, 2));
+    console.log('✅ Created users.json');
+  }
+}
+
+initializeFiles();
+
 // Load keys from JSON file
 function loadKeys() {
   try {
@@ -174,5 +188,23 @@ app.post('/admin/keys/reset', (req, res) => {
   res.json({ success: true, message: "Key reset successfully" });
 });
 
+// Root route - serve login.html
+app.get('/', (req, res) => {
+  const loginPath = path.join(__dirname, 'public', 'login.html');
+  res.sendFile(loginPath, (err) => {
+    if (err) {
+      console.error('Error sending file:', err);
+      res.status(500).send('Server error');
+    }
+  });
+});
+
+// 404 handler - serve login.html for undefined routes
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found. Use / for login.' });
+});
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
