@@ -142,6 +142,15 @@ app.get('/get-scores/:username', (req, res) => {
   }
 });
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'UP',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
+});
+
 app.get('/', (req, res) => {
   const loginPath = path.join(__dirname, 'public', 'login.html');
   console.log('Attempting to serve:', loginPath);

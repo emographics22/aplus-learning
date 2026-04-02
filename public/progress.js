@@ -55,11 +55,25 @@ function selectTopic(topic) {
 function showProgress(quiz) {
   // Find score for this specific user, topic, and quiz
   const scoreRecord = allUserScores.find(s => s.topic === selectedTopic && s.quiz === quiz);
-  let rawScore = scoreRecord ? scoreRecord.score : 0;
   
-  // Calculate percentage (assuming 10 questions per quiz)
-  const totalQuestions = 10;
-  rawScore = Math.min(rawScore, totalQuestions);
+  if (!scoreRecord) {
+    resultDiv.innerHTML = `
+      <h2 class="text-yellow-400 font-bold mb-2 text-lg">${selectedTopic}</h2>
+      <h3 class="text-white font-semibold mb-6 text-2xl">${quiz}</h3>
+      <div class="bg-gray-800 p-6 rounded-lg text-center">
+        <p class="text-gray-400 text-lg">No attempts yet. Take this quiz to see your progress!</p>
+      </div>
+      <button onclick="goBackQuizzes()" class="mt-6 bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded w-full font-bold">
+        ← Back to Quizzes
+      </button>
+    `;
+    document.getElementById('quiz-selection').classList.add('hidden');
+    document.getElementById('result-section').classList.remove('hidden');
+    return;
+  }
+  
+  const rawScore = scoreRecord.score;
+  const totalQuestions = scoreRecord.total;
   let percentage = Math.round((rawScore / totalQuestions) * 100);
   percentage = Math.max(0, Math.min(100, percentage));
   const remainingPercentage = 100 - percentage;
@@ -96,10 +110,10 @@ function showProgress(quiz) {
         </div>
         <div class="bg-gray-700 p-3 rounded text-center">
           <p class="text-gray-400 text-xs mb-1">YOUR SCORE</p>
-          <p class="text-white text-2xl font-bold">${percentage}/100</p>
+          <p class="text-white text-2xl font-bold">${percentage}%</p>
         </div>
         <div class="bg-gray-700 p-3 rounded text-center">
-          <p class="text-gray-400 text-xs mb-1">QUESTIONS PASSED</p>
+          <p class="text-gray-400 text-xs mb-1">CORRECT ANSWERS</p>
           <p class="text-white text-2xl font-bold">${rawScore}/${totalQuestions}</p>
         </div>
       </div>

@@ -17,6 +17,14 @@ let score = 0;
 let username = localStorage.getItem('username') || 'unknown';
 let currentQuizData = [];
 
+// Timer tracking
+let timePerQuestion = 30; // 30 seconds per question
+let totalTime = 0;
+let timeLeft = 0;
+let timerInterval = null;
+let timerElement = document.getElementById('timer');
+let timerBox = document.querySelector('.timer-box');
+
 // Display username
 userDisplay.textContent = username;
 
@@ -33,6 +41,50 @@ async function loadUserScores() {
 }
 
 loadUserScores();
+
+// ==== TIMER FUNCTIONS ====
+function startTimer() {
+  // Stop any existing timer
+  if (timerInterval) clearInterval(timerInterval);
+  
+  // Reset timer for new question
+  timeLeft = timePerQuestion;
+  updateTimerDisplay();
+  
+  // Remove warning class
+  timerBox.classList.remove('timer-warning');
+  
+  // Start countdown
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerDisplay();
+    
+    // Change color when 10 seconds left
+    if (timeLeft <= 10 && timeLeft > 0) {
+      timerBox.classList.add('timer-warning');
+    }
+    
+    // When time is up for this question
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      // Auto-move to next question
+      nextBtn.click();
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  let minutes = Math.floor(timeLeft / 60);
+  let seconds = timeLeft % 60;
+  timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+function stopTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
 
 // ==== SECTION 2: SHOW TOPICS WITH TAG ====
 Object.keys(quizzes).forEach(topic => {
@@ -89,6 +141,7 @@ function showQuizList(topic) {
 
 // Back to topics button
 document.getElementById('backBtn').onclick = () => {
+  stopTimer();
   quizList.classList.add('hidden');
   quizContainer.classList.add('hidden');
   resultsContainer.classList.add('hidden');
@@ -107,6 +160,10 @@ function startQuiz(qName, topic) {
   currentQuizData = quizzes[topic][qName];
   currentQuestion = 0;
   score = 0;
+  
+  // Calculate total time for entire quiz
+  totalTime = currentQuizData.length * timePerQuestion;
+  timeLeft = totalTime;
   
   showQuestion();
 }
@@ -138,6 +195,9 @@ function showQuestion() {
   });
   
   nextBtn.classList.add('hidden');
+  
+  // Start timer for this question
+  startTimer();
 }
 
 // ==== SECTION 6: SELECT ANSWER ====
@@ -167,6 +227,7 @@ function selectAnswer(btn, selected, correctAnswer, container, totalQuestions) {
 
 // ==== SECTION 7: NEXT QUESTION ====
 nextBtn.onclick = () => {
+  stopTimer();
   const totalQuestions = currentQuizData.length;
   currentQuestion++;
   
@@ -179,6 +240,7 @@ nextBtn.onclick = () => {
 
 // ==== SECTION 8: SHOW RESULTS ====
 function showResults() {
+  stopTimer();
   quizContainer.classList.add('hidden');
   resultsContainer.classList.remove('hidden');
   
@@ -187,7 +249,7 @@ function showResults() {
   const isPassed = percentage >= 70;
   
   // Final score display
-  document.getElementById('finalScore').textContent = score;
+  document.getElementById('finalScore').textContent = score + '/' + totalQuestions;
   
   // Progress bar
   const progressWidth = (score / totalQuestions) * 100;
@@ -253,4 +315,11 @@ function resetQuiz() {
   selectedTopic = null;
   currentQuizData = [];
   nextBtn.classList.add('hidden');
+  stopTimer();
+}
+
+// ==== SECTION 11: SUBMIT QUIZ (When time runs out) ====
+function submitQuiz() {
+  stopTimer();
+  showResults();
 }

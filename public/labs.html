@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Labs - A+ Learning</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white min-h-screen p-4">
+
+<div class="max-w-4xl mx-auto">
+
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-4xl text-yellow-400 font-bold">🧪 A+ Labs</h1>
+      <a href="dashboard.html" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-1 px-4 rounded">
+        ← Dashboard
+      </a>
+    </div>
+    <p class="text-gray-400">User: <span id="userDisplay" class="text-yellow-300 font-bold"></span></p>
+  </div>
+
+  <!-- Lab Selection Screen -->
+  <div id="lab-selection" class="bg-gray-900 p-8 rounded-3xl shadow-2xl">
+    <h2 class="text-2xl text-yellow-400 font-bold mb-6 text-center">Select Core</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <button onclick="startLab('core1')" class="bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white font-bold py-6 rounded-lg transition duration-200 text-lg">
+        📚 Core 1 → 220-1201
+      </button>
+      <button onclick="startLab('core2')" class="bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white font-bold py-6 rounded-lg transition duration-200 text-lg">
+        📚 Core 2 → 220-1202
+      </button>
+    </div>
+  </div>
+
+  <!-- Lab Quiz Screen -->
+  <div id="lab-quiz" class="hidden">
+    <!-- Timer -->
+    <div class="mb-8 flex justify-center">
+      <h3 class="timer-box">
+        ⏱ Time Left: <span id="timer">00:00</span>
+      </h3>
+    </div>
+
+    <!-- Questions Container -->
+    <div id="quiz-container" class="bg-gray-900 p-8 rounded-3xl shadow-2xl mb-6">
+      <div id="quiz"></div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="flex gap-4">
+      <button onclick="submitLab()" class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-lg transition duration-200 text-lg">
+        ✓ Submit Lab
+      </button>
+      <button onclick="backToSelection()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 rounded-lg transition duration-200 text-lg">
+        ← Back
+      </button>
+    </div>
+  </div>
+
+  <!-- Results Screen -->
+  <div id="results-container" class="hidden bg-gray-900 p-8 rounded-3xl shadow-2xl">
+    <div class="text-center">
+      <h2 class="text-4xl text-yellow-400 font-bold mb-6">Lab Complete! 🎉</h2>
+      
+      <!-- Score Display -->
+      <div class="bg-gray-800 p-8 rounded-2xl mb-8">
+        <p class="text-gray-300 text-lg mb-2">Your Score</p>
+        <p class="text-6xl font-bold mb-4">
+          <span id="finalScore" class="text-yellow-400">0/10</span>
+        </p>
+        <div class="w-full bg-gray-700 rounded-full h-4 mb-4">
+          <div id="finalProgressBar" class="bg-green-500 h-4 rounded-full"></div>
+        </div>
+        <p class="text-2xl font-bold" id="resultStatus"></p>
+      </div>
+
+      <!-- Correct Answers Given By User -->
+      <div class="bg-gray-800 p-6 rounded-lg mb-8">
+        <h3 class="text-xl text-yellow-400 font-bold mb-4">Your Answers:</h3>
+        <div id="answerReview" class="text-left space-y-4"></div>
+      </div>
+
+      <!-- Statistics -->
+      <div class="grid grid-cols-3 gap-4 mb-8">
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <p class="text-gray-400 text-sm mb-1">Percentage</p>
+          <p class="text-2xl font-bold text-yellow-400" id="percentDisplay">0%</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <p class="text-gray-400 text-sm mb-1">Status</p>
+          <p class="text-xl font-bold" id="passFailDisplay">-</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <p class="text-gray-400 text-sm mb-1">Correct</p>
+          <p class="text-2xl font-bold text-green-400" id="correctDisplay">0</p>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex gap-4">
+        <button onclick="retakeLab()" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded-lg transition duration-200">
+          🔄 Retake Lab
+        </button>
+        <button onclick="backToSelection()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 rounded-lg transition duration-200">
+          ← Back to Selection
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="lab.js"></script>
+
+</body>
+</html>
