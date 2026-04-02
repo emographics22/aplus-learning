@@ -10,6 +10,20 @@ const quizDiv = document.getElementById('quizzes');
 const resultDiv = document.getElementById('result');
 
 let selectedTopic = "";
+let username = localStorage.getItem('username') || 'unknown';
+let allUserScores = [];
+
+// Load user scores on page load
+async function loadUserScores() {
+  try {
+    const response = await fetch(`/get-scores/${username}`);
+    allUserScores = await response.json();
+  } catch (e) {
+    allUserScores = [];
+  }
+}
+
+loadUserScores();
 
 // ===== Show Topics =====
 Object.keys(topics).forEach(topic => {
@@ -39,17 +53,14 @@ function selectTopic(topic) {
 
 // ===== Show Progress for selected quiz =====
 function showProgress(quiz) {
-  // Load scores from the same format that quizLogic.js saves
-  const allScores = JSON.parse(localStorage.getItem('quizScores') || "{}");
-  const topicScores = allScores[selectedTopic] || {};
-  let rawScore = topicScores[quiz] || 0; // default 0 if not taken
+  // Find score for this specific user, topic, and quiz
+  const scoreRecord = allUserScores.find(s => s.topic === selectedTopic && s.quiz === quiz);
+  let rawScore = scoreRecord ? scoreRecord.score : 0;
   
   // Calculate percentage (assuming 10 questions per quiz)
   const totalQuestions = 10;
-  // Ensure rawScore doesn't exceed total questions
   rawScore = Math.min(rawScore, totalQuestions);
   let percentage = Math.round((rawScore / totalQuestions) * 100);
-  // Ensure percentage is between 0 and 100
   percentage = Math.max(0, Math.min(100, percentage));
   const remainingPercentage = 100 - percentage;
   const isPassed = percentage >= PASS_MARK;

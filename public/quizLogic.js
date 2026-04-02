@@ -10,6 +10,7 @@ let selectedTopic;
 let selectedQuiz;
 let currentQuestion = 0;
 let score = 0;
+let username = localStorage.getItem('username') || 'unknown';
 
 // Show topics
 Object.keys(quizzes).forEach(topic => {
@@ -98,6 +99,45 @@ nextBtn.onclick = () => {
   if(currentQuestion < qArray.length) {
     showQuestion();
     scoreText.textContent = "";
+  } else {
+    quizContainer.innerHTML = `
+      <div class="text-center">
+        <h2 class="text-2xl text-yellow-400 font-bold mb-4">Quiz Finished!</h2>
+        <p class="text-white text-lg mb-4">Your score: <span class="font-bold">${score}</span> / ${qArray.length}</p>
+        <button id="backBtn" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-6 rounded transition duration-200">
+          Back to Dashboard
+        </button>
+      </div>
+    `;
+    
+    scoreText.textContent = "";
+
+    // Save score to server with username
+    saveScoreToServer(score);
+
+    // Back to Dashboard button
+    document.getElementById('backBtn').onclick = () => {
+      window.location.href = 'dashboard.html';
+    };
+  }
+};
+
+// Save score to server
+function saveScoreToServer(finalScore) {
+  const scoreData = {
+    username: username,
+    topic: selectedTopic,
+    quiz: selectedQuiz,
+    score: finalScore,
+    total: quizzes[selectedTopic][selectedQuiz].length
+  };
+  
+  fetch('/save-score', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(scoreData)
+  }).catch(err => console.log('Score saved locally:', finalScore));
+}
   } else {
     quizContainer.innerHTML = `
       <div class="text-center">

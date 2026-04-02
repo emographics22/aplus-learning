@@ -112,20 +112,44 @@ document.getElementById('logoutBtn').onclick = () => {
   window.location = 'login.html';
 };
 
-// Display per-topic quiz progress
+// Display user-specific quiz progress
 const progressList = document.getElementById('quizProgress');
-const scores = JSON.parse(localStorage.getItem('quizScores') || "{}");
 
-if(Object.keys(scores).length === 0){
-  progressList.innerHTML = "<li>No quizzes taken yet.</li>";
-} else {
-  progressList.innerHTML = "";
-  for(const topic in scores){
-    const li = document.createElement('li');
-    li.textContent = `${topic}: ${scores[topic]} / ${quizzes[topic].length} ✅`;
-    progressList.appendChild(li);
+async function loadUserProgress() {
+  try {
+    const response = await fetch(`/get-scores/${username}`);
+    const scores = await response.json();
+    
+    if(scores.length === 0) {
+      progressList.innerHTML = "<li>No quizzes taken yet.</li>";
+    } else {
+      progressList.innerHTML = "";
+      const grouped = {};
+      
+      // Group scores by topic
+      scores.forEach(score => {
+        if (!grouped[score.topic]) grouped[score.topic] = [];
+        grouped[score.topic].push(score);
+      });
+      
+      // Display scores by topic
+      for(const topic in grouped) {
+        const topicScores = grouped[topic];
+        const totalQuizzes = topicScores.length;
+        const passingQuizzes = topicScores.filter(s => (s.score / s.total * 100) >= 70).length;
+        
+        const li = document.createElement('li');
+        li.textContent = `${topic}: ${passingQuizzes}/${totalQuizzes} passed ✅`;
+        li.className = "text-gray-300 mb-2";
+        progressList.appendChild(li);
+      }
+    }
+  } catch (e) {
+    progressList.innerHTML = "<li>Error loading progress</li>";
   }
 }
+
+loadUserProgress();
 </script>
 
 </body>

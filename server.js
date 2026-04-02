@@ -105,6 +105,43 @@ app.post('/admin/keys/reset', (req, res) => {
   res.json({ success: true });
 });
 
+// Save quiz score for user
+app.post('/save-score', (req, res) => {
+  const { username, topic, quiz, score, total } = req.body;
+  if (!username || !topic || !quiz) {
+    return res.json({ success: false });
+  }
+  
+  const scoresFile = path.join(__dirname, 'scores.json');
+  let scores = [];
+  
+  try {
+    scores = JSON.parse(fs.readFileSync(scoresFile, 'utf8'));
+  } catch (e) {
+    scores = [];
+  }
+  
+  const timestamp = new Date().toISOString();
+  scores.push({ username, topic, quiz, score, total, timestamp });
+  fs.writeFileSync(scoresFile, JSON.stringify(scores, null, 2));
+  
+  res.json({ success: true });
+});
+
+// Get user scores
+app.get('/get-scores/:username', (req, res) => {
+  const username = req.params.username;
+  const scoresFile = path.join(__dirname, 'scores.json');
+  
+  try {
+    const allScores = JSON.parse(fs.readFileSync(scoresFile, 'utf8'));
+    const userScores = allScores.filter(s => s.username === username);
+    res.json(userScores);
+  } catch (e) {
+    res.json([]);
+  }
+});
+
 app.get('/', (req, res) => {
   const loginPath = path.join(__dirname, 'public', 'login.html');
   console.log('Attempting to serve:', loginPath);
