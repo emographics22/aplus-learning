@@ -126,7 +126,12 @@ function showQuizList(topic) {
     <h2 class="text-2xl text-yellow-400 font-bold mb-4">${topic}</h2>
   `;
   
-  Object.keys(quizzes[topic]).forEach(qName => {
+  // Get quizzes for this topic
+  const allQuizzes = Object.keys(quizzes[topic]);
+  // Limit to 2 quizzes for guests
+  const displayedQuizzes = isGuest ? allQuizzes.slice(0, 2) : allQuizzes;
+  
+  displayedQuizzes.forEach(qName => {
     const btn = document.createElement('button');
     btn.className = "relative bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white font-bold py-6 rounded-lg transition duration-200 text-center";
     
@@ -146,6 +151,17 @@ function showQuizList(topic) {
     btn.onclick = () => startQuiz(qName, topic);
     quizzesDiv.appendChild(btn);
   });
+  
+  // Show register prompt for guests if more quizzes exist
+  if (isGuest && allQuizzes.length > 2) {
+    quizzesDiv.innerHTML += `
+      <div class="col-span-full bg-yellow-500 bg-opacity-20 border-2 border-yellow-400 rounded-lg p-6 text-center">
+        <p class="text-yellow-300 font-bold mb-4">🔒 Showing 2 of ${allQuizzes.length} quizzes</p>
+        <a href="register.html" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded mr-2">Register</a>
+        <a href="login.html" class="inline-block bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Login</a>
+      </div>
+    `;
+  }
 }
 
 // Back to topics button

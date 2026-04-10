@@ -14,6 +14,9 @@ const topics = {
   ]
 };
 
+// Check if guest
+let isGuest = !localStorage.getItem('username');
+
 // Exam objectives percentages
 const examObjectives = {
   "Hardware": "25%",
@@ -61,6 +64,13 @@ function showChapters(topic) {
 
 // Open notes page
 function openNotes(chapter) {
+  // Redirect guests to register page
+  if (isGuest) {
+    alert('Please register or login to access notes');
+    window.location.href = "register.html";
+    return;
+  }
+  
   // Save selection
   localStorage.setItem('selectedTopic', selectedTopic);
   localStorage.setItem('selectedChapter', chapter);

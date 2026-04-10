@@ -142,6 +142,13 @@ document.getElementById('userDisplay').textContent = localStorage.getItem('usern
 // =======================
 
 function startLab(core) {
+  // Redirect guests to register page
+  if (isGuest) {
+    alert('Please register or login to practice labs');
+    window.location.href = "register.html";
+    return;
+  }
+  
   selectedCore = core;
   
   let questions = questionBank[core];
