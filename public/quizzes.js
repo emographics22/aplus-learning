@@ -1,37 +1,38 @@
 ﻿// quizzes.js - Uses generated question bank with 50 quizzes x 2 cores = 2,500 questions
 
-// Wait for generatedQuizzes to be ready
+// Initialize immediately with retry mechanism
 let quizzes = {};
 let quizzesReady = false;
+let initAttempts = 0;
 
 function initializeQuizzes() {
-  console.log("🔄 Initializing quizzes...");
-  console.log("generatedQuizzes available:", typeof generatedQuizzes !== 'undefined');
+  initAttempts++;
   
   if (typeof generatedQuizzes !== 'undefined' && generatedQuizzes) {
-    // Check if quizzes actually have data (not just empty objects)
     const core1QuizCount = Object.keys(generatedQuizzes["Core 1 → 220-1201"] || {}).length;
     const core2QuizCount = Object.keys(generatedQuizzes["Core 2 → 220-1202"] || {}).length;
     
-    console.log(`Core 1 quizzes: ${core1QuizCount}, Core 2 quizzes: ${core2QuizCount}`);
-    
     if (core1QuizCount > 0 && core2QuizCount > 0) {
       quizzes = generatedQuizzes;
-      console.log(`✅ ✅ ✅ Quizzes initialized with ${Object.keys(quizzes).length} topics`);
+      quizzesReady = true;
+      console.log("🎉🎉🎉 QUIZZES READY!");
       console.log(`✅ Core 1: ${core1QuizCount} quizzes`);
       console.log(`✅ Core 2: ${core2QuizCount} quizzes`);
-      
-      // Shuffle quizzes on load
-      quizzes = shuffleQuizzes(quizzes);
-      quizzesReady = true;
-    } else {
-      console.error("❌ Quizzes not populated yet (still empty), retrying in 200ms...");
-      setTimeout(initializeQuizzes, 200);
+      shuffleQuizzesData();
+      return;
     }
-  } else {
-    console.error("❌ generatedQuizzes not available yet, retrying in 200ms...");
-    setTimeout(initializeQuizzes, 200);
   }
+  
+  // Retry with exponential backoff
+  const delay = Math.min(50 * initAttempts, 500);
+  console.log(`⏳ Quiz init attempt ${initAttempts} - retrying in ${delay}ms...`);
+  setTimeout(initializeQuizzes, delay);
+}
+
+function shuffleQuizzesData() {
+  if (!quizzes || Object.keys(quizzes).length === 0) return;
+  quizzes = shuffleQuizzes(quizzes);
+  console.log("✅ Quiz options shuffled");
 }
 
 // Function to shuffle array
