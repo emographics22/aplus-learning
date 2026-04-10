@@ -1,11 +1,5 @@
 ﻿// quizzes.js - Pre-generated 50 quizzes per core, 30 questions each, INSTANT LOAD
 
-// CompTIA A+ Quiz Database
-const quizzes = {
-  "Core 1 → 220-1201": generateStaticQuizzes("core1"),
-  "Core 2 → 220-1202": generateStaticQuizzes("core2")
-};
-
 // Question pool for each core
 const answerOptions = {
   core1: [
@@ -107,6 +101,12 @@ function generateStaticQuizzes(core) {
   
   return quizzes;
 }
+
+// ⚡ CREATE QUIZZES - Function is now defined, safe to call ⚡
+const quizzes = {
+  "Core 1 → 220-1201": generateStaticQuizzes("core1"),
+  "Core 2 → 220-1202": generateStaticQuizzes("core2")
+};
 
 console.log("✅ QUIZZES READY INSTANTLY!");
 console.log(`✅ Core 1: ${Object.keys(quizzes["Core 1 → 220-1201"]).length} quizzes`);
