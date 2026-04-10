@@ -131,8 +131,11 @@ let timeLeft = 0;
 let totalTime = 0;
 let userAnswers = [];
 
+// Guest mode detection
+let isGuest = !localStorage.getItem('username');
+
 // Display username
-document.getElementById('userDisplay').textContent = localStorage.getItem('username') || 'Student';
+document.getElementById('userDisplay').textContent = localStorage.getItem('username') || 'Guest';
 
 // =======================
 // START LAB
@@ -229,6 +232,16 @@ function startTimer() {
 function submitLab() {
   clearInterval(timer);
 
+  // Check if guest before showing results
+  if (isGuest) {
+    showRegisterPrompt();
+    // Go back to selection for guest to try again
+    setTimeout(() => {
+      backToSelection();
+    }, 1500);
+    return;
+  }
+
   let score = 0;
   let answers = [];
 
@@ -307,6 +320,12 @@ function showResults(score, answers) {
 // =======================
 
 function saveLabScore(score, total) {
+  // Don't save guest scores
+  if (isGuest) {
+    console.log('Guest mode - lab score not saved');
+    return;
+  }
+
   const username = localStorage.getItem('username') || 'unknown';
   const scoreData = {
     username: username,

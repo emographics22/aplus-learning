@@ -10,8 +10,17 @@ const quizDiv = document.getElementById('quizzes');
 const resultDiv = document.getElementById('result');
 
 let selectedTopic = "";
-let username = localStorage.getItem('username') || 'unknown';
+let username = localStorage.getItem('username') || 'Guest';
+let isGuest = !localStorage.getItem('username');
 let allUserScores = [];
+
+// Show guest notice if needed
+if (isGuest) {
+  const guestNotice = document.createElement('div');
+  guestNotice.className = 'bg-yellow-500 bg-opacity-20 border-2 border-yellow-400 rounded-lg p-4 mb-6 text-center';
+  guestNotice.innerHTML = '<p class="text-yellow-300 font-bold">📊 Progress tracking is available after registration. Take quizzes now to start tracking!</p>';
+  document.querySelector('.bg-gray-900').insertBefore(guestNotice, topicDiv.parentElement);
+}
 
 // Load user scores on page load
 async function loadUserScores() {

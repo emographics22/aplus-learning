@@ -14,7 +14,8 @@ let selectedTopic;
 let selectedQuiz;
 let currentQuestion = 0;
 let score = 0;
-let username = localStorage.getItem('username') || 'unknown';
+let username = localStorage.getItem('username') || 'Guest';
+let isGuest = !localStorage.getItem('username');
 let currentQuizData = [];
 
 // Timer tracking
@@ -25,8 +26,17 @@ let timerInterval = null;
 let timerElement = document.getElementById('timer');
 let timerBox = document.querySelector('.timer-box');
 
-// Display username
+// Display username and show guest mode banner
+const userDisplay = document.getElementById('userDisplay');
 userDisplay.textContent = username;
+
+// Show guest mode notice
+if (isGuest) {
+  const guestBanner = document.getElementById('guest-mode-banner');
+  if (guestBanner) {
+    guestBanner.classList.remove('hidden');
+  }
+}
 
 // ==== SECTION 1: LOAD USER SCORES FROM SERVER ====
 let userScores = [];
@@ -234,7 +244,18 @@ nextBtn.onclick = () => {
   if (currentQuestion < totalQuestions) {
     showQuestion();
   } else {
-    showResults();
+    // Check if guest before showing results
+    if (isGuest) {
+      showRegisterPrompt();
+      // Reset for another attempt without registration
+      resultsContainer.classList.add('hidden');
+      quizContainer.classList.remove('hidden');
+      currentQuestion = 0;
+      score = 0;
+      showQuestion();
+    } else {
+      showResults();
+    }
   }
 };
 
@@ -289,6 +310,12 @@ function showResults() {
 
 // ==== SECTION 9: SAVE SCORE TO SERVER ====
 function saveScoreToServer(finalScore) {
+  // Don't save guest scores
+  if (isGuest) {
+    console.log('Guest mode - score not saved');
+    return;
+  }
+  
   const scoreData = {
     username: username,
     topic: selectedTopic,
