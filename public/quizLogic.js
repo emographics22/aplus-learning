@@ -97,6 +97,13 @@ function stopTimer() {
 
 // ==== SECTION 2: SHOW TOPICS WITH TAG ====
 function loadTopics() {
+  // Wait for quizzesReady flag
+  if (typeof quizzesReady === 'undefined' || !quizzesReady) {
+    console.warn("⏳ Waiting for quizzes to initialize...");
+    setTimeout(loadTopics, 100);
+    return;
+  }
+
   if (!quizzes || Object.keys(quizzes).length === 0) {
     console.error("❌ Quizzes not loaded yet. Retrying in 100ms...");
     setTimeout(loadTopics, 100);
