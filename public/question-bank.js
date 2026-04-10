@@ -485,9 +485,14 @@ Object.values(questionBankData.core2).forEach(domainQuestions => {
 });
 
 // Generate 50 quizzes per core
+console.log("🟡 Starting quiz generation for Core 1...");
 generatedQuizzes["Core 1 → 220-1201"] = generateQuizzes(core1Questions, 50, 25);
+
+console.log("🟡 Starting quiz generation for Core 2...");
 generatedQuizzes["Core 2 → 220-1202"] = generateQuizzes(core2Questions, 50, 25);
 
-console.log("✅ Question bank generated:");
-console.log(`Core 1: ${Object.keys(generatedQuizzes["Core 1 → 220-1201"]).length} quizzes with 25 questions each`);
-console.log(`Core 2: ${Object.keys(generatedQuizzes["Core 2 → 220-1202"]).length} quizzes with 25 questions each`);
+console.log("✅✅✅ Question bank generation complete!");
+console.log(`✅ Core 1: ${Object.keys(generatedQuizzes["Core 1 → 220-1201"]).length} quizzes with 25 questions each`);
+console.log(`✅ Core 2: ${Object.keys(generatedQuizzes["Core 2 → 220-1202"]).length} quizzes with 25 questions each`);
+console.log("✅ generatedQuizzes is ready for use");
+console.log("✅", generatedQuizzes);

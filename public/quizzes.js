@@ -7,20 +7,30 @@ let quizzesReady = false;
 function initializeQuizzes() {
   console.log("🔄 Initializing quizzes...");
   console.log("generatedQuizzes available:", typeof generatedQuizzes !== 'undefined');
-  console.log("generatedQuizzes content:", generatedQuizzes);
   
-  if (typeof generatedQuizzes !== 'undefined' && generatedQuizzes && Object.keys(generatedQuizzes).length > 0) {
-    quizzes = generatedQuizzes;
-    console.log(`✅ Quizzes initialized with ${Object.keys(quizzes).length} topics`);
-    console.log(`   - Core 1: ${Object.keys(quizzes["Core 1 → 220-1201"] || {}).length} quizzes`);
-    console.log(`   - Core 2: ${Object.keys(quizzes["Core 2 → 220-1202"] || {}).length} quizzes`);
+  if (typeof generatedQuizzes !== 'undefined' && generatedQuizzes) {
+    // Check if quizzes actually have data (not just empty objects)
+    const core1QuizCount = Object.keys(generatedQuizzes["Core 1 → 220-1201"] || {}).length;
+    const core2QuizCount = Object.keys(generatedQuizzes["Core 2 → 220-1202"] || {}).length;
     
-    // Shuffle quizzes on load
-    quizzes = shuffleQuizzes(quizzes);
-    quizzesReady = true;
+    console.log(`Core 1 quizzes: ${core1QuizCount}, Core 2 quizzes: ${core2QuizCount}`);
+    
+    if (core1QuizCount > 0 && core2QuizCount > 0) {
+      quizzes = generatedQuizzes;
+      console.log(`✅ ✅ ✅ Quizzes initialized with ${Object.keys(quizzes).length} topics`);
+      console.log(`✅ Core 1: ${core1QuizCount} quizzes`);
+      console.log(`✅ Core 2: ${core2QuizCount} quizzes`);
+      
+      // Shuffle quizzes on load
+      quizzes = shuffleQuizzes(quizzes);
+      quizzesReady = true;
+    } else {
+      console.error("❌ Quizzes not populated yet (still empty), retrying in 200ms...");
+      setTimeout(initializeQuizzes, 200);
+    }
   } else {
-    console.error("❌ generatedQuizzes not available yet, retrying in 100ms...");
-    setTimeout(initializeQuizzes, 100);
+    console.error("❌ generatedQuizzes not available yet, retrying in 200ms...");
+    setTimeout(initializeQuizzes, 200);
   }
 }
 

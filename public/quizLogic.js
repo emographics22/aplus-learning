@@ -142,19 +142,37 @@ setTimeout(loadTopics, 200);
 
 // Additional safety check
 window.addEventListener('load', () => {
-  console.log("=== PAGE LOADED ===");
-  console.log("Quizzes object:", quizzes);
+  console.log("=== 🟡 PAGE FULLY LOADED ===");
+  console.log("quizzesReady status:", quizzesReady);
+  console.log("quizzes object:", quizzes);
   console.log("Available topics:", Object.keys(quizzes || {}));
   
-  if (!quizzes || Object.keys(quizzes).length === 0) {
-    console.error("❌ Quizzes object is empty or undefined");
+  // Check specific topic quiz counts
+  if (quizzes) {
+    for (const topic in quizzes) {
+      const quizCount = Object.keys(quizzes[topic] || {}).length;
+      console.log(`✅ ${topic}: ${quizCount} quizzes available`);
+    }
+  }
+  
+  if (!quizzesReady || !quizzes || Object.keys(quizzes).length === 0) {
+    console.error("❌ ISSUE: Quizzes not ready or empty");
     console.log("Checking generatedQuizzes:", typeof generatedQuizzes);
     
     setTimeout(() => {
-      console.log("Second check - Quizzes:", quizzes);
-      console.log("generatedQuizzes:", generatedQuizzes);
+      console.log("=== SECOND CHECK (after 1 second) ===");
+      console.log("quizzesReady:", quizzesReady);
+      console.log("quizzes:", quizzes);
+      if (quizzes) {
+        for (const topic in quizzes) {
+          console.log(`${topic}: ${Object.keys(quizzes[topic] || {}).length} quizzes`);
+        }
+      }
     }, 1000);
   } else {
+    console.log("✅ Quizzes are READY and populated");
+  }
+});
     console.log(`✅ Found ${Object.keys(quizzes).length} topic(s)`);
     for (let topic in quizzes) {
       console.log(`   - ${topic}: ${Object.keys(quizzes[topic]).length} quizzes`);
