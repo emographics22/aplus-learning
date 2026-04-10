@@ -157,7 +157,7 @@ window.addEventListener('load', () => {
 
 // ==== SECTION 3: SHOW QUIZZES FOR SELECTED TOPIC ====
 let currentTopic = null;
-let quizzesShown = 0;
+let allCurrentQuizzes = [];
 
 function showQuizList(topic) {
   document.getElementById('topic-selection').classList.add('hidden');
@@ -165,7 +165,6 @@ function showQuizList(topic) {
   quizzesDiv.innerHTML = '';
   
   currentTopic = topic;
-  quizzesShown = 0;
   
   // Topic header
   document.getElementById('topicHeader').innerHTML = `
@@ -173,28 +172,29 @@ function showQuizList(topic) {
   `;
   
   // Get quizzes for this topic
-  const allQuizzes = Object.keys(quizzes[topic]);
-  console.log(`📚 Topic: ${topic}, Total quizzes available: ${allQuizzes.length}`);
+  allCurrentQuizzes = Object.keys(quizzes[topic]);
+  console.log(`📚 Topic: ${topic}, Total quizzes: ${allCurrentQuizzes.length}`);
   
-  // Display first batch of quizzes
-  displayQuizzBatch(topic, allQuizzes, 0, 5);
+  // Display first 5 quizzes (or 2 for guests)
+  displayQuizzes(topic, 5);
 }
 
-function displayQuizzBatch(topic, allQuizzes, startIndex, batchSize) {
+function displayQuizzes(topic, numToShow) {
   const container = document.getElementById('quizzes');
-  const endIndex = Math.min(startIndex + batchSize, allQuizzes.length);
   
-  // Determine how many to show for guests
-  let maxToShow = endIndex;
-  if (isGuest && endIndex > 2) {
-    maxToShow = 2;
+  // For guests, cap at 2
+  if (isGuest && numToShow > 2) {
+    numToShow = 2;
   }
   
-  console.log(`🎯 Displaying quizzes ${startIndex + 1}-${maxToShow} of ${allQuizzes.length}`);
+  console.log(`🎯 Showing ${numToShow} quizzes out of ${allCurrentQuizzes.length}`);
   
-  // Display quizzes in this batch
-  for (let i = startIndex; i < maxToShow; i++) {
-    const qName = allQuizzes[i];
+  // Clear previous content
+  container.innerHTML = '';
+  
+  // Display quizzes up to numToShow
+  for (let i = 0; i < Math.min(numToShow, allCurrentQuizzes.length); i++) {
+    const qName = allCurrentQuizzes[i];
     
     const btn = document.createElement('button');
     btn.className = "relative bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white font-bold py-6 rounded-lg transition duration-200 text-center";
@@ -217,85 +217,30 @@ function displayQuizzBatch(topic, allQuizzes, startIndex, batchSize) {
     container.appendChild(btn);
   }
   
-  quizzesShown = maxToShow;
-  
   // Show guest notice if applicable
-  if (isGuest && allQuizzes.length > 2) {
+  if (isGuest && allCurrentQuizzes.length > 2) {
     const guestNotice = document.createElement('div');
-    guestNotice.className = "col-span-full bg-yellow-500 bg-opacity-20 border-2 border-yellow-400 rounded-lg p-6 text-center";
+    guestNotice.className = "bg-yellow-500 bg-opacity-20 border-2 border-yellow-400 rounded-lg p-6 text-center mt-4";
     guestNotice.innerHTML = `
-      <p class="text-yellow-300 font-bold mb-4">🔒 Guest Mode - Showing 2 of ${allQuizzes.length} quizzes</p>
+      <p class="text-yellow-300 font-bold mb-4">🔒 Guest Mode - Showing 2 of ${allCurrentQuizzes.length} quizzes</p>
       <a href="register.html" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded mr-2">📝 Register</a>
       <a href="login.html" class="inline-block bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">🔑 Login</a>
     `;
     container.appendChild(guestNotice);
   }
   
-  // Show Load More button if there are more quizzes for members
-  if (!isGuest && maxToShow < allQuizzes.length) {
+  // Show Load More button only for members and only if more quizzes exist
+  if (!isGuest && numToShow < allCurrentQuizzes.length) {
+    const separator = document.createElement('div');
+    separator.className = "col-span-full";
+    container.appendChild(separator);
+    
     const loadMoreBtn = document.createElement('button');
-    loadMoreBtn.className = "col-span-full bg-gradient-to-r from-green-700 to-green-600 hover:from-green-600 hover:to-green-500 text-white font-bold py-4 px-6 rounded-lg transition duration-200 text-lg mt-4";
-    loadMoreBtn.textContent = `📚 Load More Quizzes (Showing ${maxToShow}/${allQuizzes.length})`;
+    loadMoreBtn.className = "col-span-full bg-gradient-to-r from-green-700 to-green-600 hover:from-green-600 hover:to-green-500 text-white font-bold py-4 px-6 rounded-lg transition duration-200 text-lg mt-6";
+    loadMoreBtn.textContent = `📚 Load More (Showing ${numToShow}/${allCurrentQuizzes.length})`;
     loadMoreBtn.onclick = () => {
-      // Remove the Load More button
-      loadMoreBtn.remove();
-      // Load next batch
-      displayQuizzBatch(topic, allQuizzes, maxToShow, 5);
+      displayQuizzes(topic, numToShow + 5);
     };
-    container.appendChild(loadMoreBtn);
-  }
-}
-
-function loadMoreQuizzes(topic, allQuizzes) {
-  const container = document.getElementById('quizzes');
-  
-  // Remove the old Load More button
-  const buttons = container.querySelectorAll('button');
-  let loadMoreBtn = null;
-  buttons.forEach(btn => {
-    if (btn.textContent.includes('Load More')) {
-      loadMoreBtn = btn;
-    }
-  });
-  
-  if (loadMoreBtn) {
-    loadMoreBtn.remove();
-  }
-  
-  quizzesShown += 5; // Load 5 more
-  if (quizzesShown > allQuizzes.length) {
-    quizzesShown = allQuizzes.length; // Cap at total quizzes
-  }
-  
-  const displayedQuizzes = allQuizzes.slice(quizzesShown - 5, quizzesShown);
-  
-  displayedQuizzes.forEach(qName => {
-    const btn = document.createElement('button');
-    btn.className = "relative bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white font-bold py-6 rounded-lg transition duration-200 text-center";
-    
-    // Find score for this quiz
-    const scoreRecord = userScores.find(s => s.topic === topic && s.quiz === qName);
-    const percentage = scoreRecord ? Math.round((scoreRecord.score / scoreRecord.total) * 100) : 0;
-    const isPassed = percentage >= 70;
-    
-    let badge = '';
-    if (scoreRecord) {
-      badge = isPassed 
-        ? `<div class="absolute top-2 right-2 bg-green-500 text-black text-xs font-bold px-2 py-1 rounded">✅ ${percentage}%</div>`
-        : `<div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">❌ ${percentage}%</div>`;
-    }
-    
-    btn.innerHTML = `${badge}<div class="text-lg">${qName}</div><div class="text-xs text-gray-400 mt-2">${Object.keys(quizzes[topic][qName]).length} Questions</div>`;
-    btn.onclick = () => startQuiz(qName, topic);
-    container.appendChild(btn);
-  });
-  
-  // Re-add Load More button if there are still more quizzes
-  if (quizzesShown < allQuizzes.length) {
-    const loadMoreBtn = document.createElement('button');
-    loadMoreBtn.className = "col-span-full bg-gradient-to-r from-green-700 to-green-600 hover:from-green-600 hover:to-green-500 text-white font-bold py-4 rounded-lg transition duration-200 text-lg";
-    loadMoreBtn.textContent = `📚 Load More Quizzes (${quizzesShown}/${allQuizzes.length})`;
-    loadMoreBtn.onclick = () => loadMoreQuizzes(topic, allQuizzes);
     container.appendChild(loadMoreBtn);
   }
 }
