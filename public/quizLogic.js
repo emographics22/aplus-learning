@@ -27,7 +27,6 @@ let timerElement = document.getElementById('timer');
 let timerBox = document.querySelector('.timer-box');
 
 // Display username and show guest mode banner
-const userDisplay = document.getElementById('userDisplay');
 userDisplay.textContent = username;
 
 // Show guest mode notice
