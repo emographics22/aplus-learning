@@ -97,26 +97,15 @@ function stopTimer() {
 
 // ==== SECTION 2: SHOW TOPICS WITH TAG ====
 function loadTopics() {
-  // Aggressively wait for quizzes
-  if (!quizzes || typeof quizzes !== 'object' || Object.keys(quizzes).length === 0) {
-    console.log("⏳ Waiting for quizzes object to populate...");
-    setTimeout(loadTopics, 50);
-    return;
-  }
-
-  // Validate that topics actually have quizzes
-  const core1Count = Object.keys(quizzes["Core 1 → 220-1201"] || {}).length;
-  const core2Count = Object.keys(quizzes["Core 2 → 220-1202"] || {}).length;
-  
-  if (core1Count === 0 || core2Count === 0) {
-    console.log(`⏳ Quizzes still loading... Core 1: ${core1Count}, Core 2: ${core2Count}`);
-    setTimeout(loadTopics, 50);
+  // Quizzes are pre-generated and ready instantly
+  if (!quizzes || Object.keys(quizzes).length === 0) {
+    console.error("❌ Quizzes not available");
     return;
   }
   
-  console.log("✅✅✅ LOADING TOPICS ✅✅✅");
-  console.log(`✅ Core 1: ${core1Count} quizzes`);
-  console.log(`✅ Core 2: ${core2Count} quizzes`);
+  console.log("✅ QUIZZES LOADED - LOADING TOPICS");
+  console.log("   Core 1:", Object.keys(quizzes["Core 1 → 220-1201"]).length, "quizzes");
+  console.log("   Core 2:", Object.keys(quizzes["Core 2 → 220-1202"]).length, "quizzes");
   
   Object.keys(quizzes).forEach(topic => {
     if (!topic || Object.keys(quizzes[topic]).length === 0) {
@@ -143,14 +132,12 @@ function loadTopics() {
   });
 }
 
-// Load topics after a short delay to ensure quizzes are ready
-loadTopics(); // Try immediately
-setTimeout(loadTopics, 200); // And retry after 200ms
+// Load topics - quizzes are pre-generated and ready instantly
+loadTopics();
 
 // Additional safety check
 window.addEventListener('load', () => {
-  console.log("=== 🟡 PAGE FULLY LOADED ===");
-  console.log("quizzesReady status:", quizzesReady);
+  console.log("=== PAGE FULLY LOADED ===");
   console.log("quizzes object:", quizzes);
   console.log("Available topics:", Object.keys(quizzes || {}));
   
