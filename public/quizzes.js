@@ -35,6 +35,9 @@ function shuffleQuizzesData() {
   console.log("✅ Quiz options shuffled");
 }
 
+// ⚡ START INITIALIZATION IMMEDIATELY ⚡
+initializeQuizzes();
+
 // Function to shuffle array
 function shuffleArray(array) {
   const arr = [...array];

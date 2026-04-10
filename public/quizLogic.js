@@ -144,7 +144,8 @@ function loadTopics() {
 }
 
 // Load topics after a short delay to ensure quizzes are ready
-setTimeout(loadTopics, 200);
+loadTopics(); // Try immediately
+setTimeout(loadTopics, 200); // And retry after 200ms
 
 // Additional safety check
 window.addEventListener('load', () => {
