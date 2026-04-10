@@ -133,6 +133,28 @@ function loadTopics() {
 // Load topics after a short delay to ensure quizzes are ready
 setTimeout(loadTopics, 200);
 
+// Additional safety check
+window.addEventListener('load', () => {
+  console.log("=== PAGE LOADED ===");
+  console.log("Quizzes object:", quizzes);
+  console.log("Available topics:", Object.keys(quizzes || {}));
+  
+  if (!quizzes || Object.keys(quizzes).length === 0) {
+    console.error("❌ Quizzes object is empty or undefined");
+    console.log("Checking generatedQuizzes:", typeof generatedQuizzes);
+    
+    setTimeout(() => {
+      console.log("Second check - Quizzes:", quizzes);
+      console.log("generatedQuizzes:", generatedQuizzes);
+    }, 1000);
+  } else {
+    console.log(`✅ Found ${Object.keys(quizzes).length} topic(s)`);
+    for (let topic in quizzes) {
+      console.log(`   - ${topic}: ${Object.keys(quizzes[topic]).length} quizzes`);
+    }
+  }
+});
+
 // ==== SECTION 3: SHOW QUIZZES FOR SELECTED TOPIC ====
 let quizzesShown = 0;
 function showQuizList(topic) {
@@ -259,6 +281,25 @@ document.getElementById('backBtn').onclick = () => {
 
 // ==== SECTION 4: START QUIZ ====
 function startQuiz(qName, topic) {
+  console.log(`🎯 Starting quiz: ${qName} from topic: ${topic}`);
+  console.log(`Quizzes object:`, quizzes);
+  console.log(`Topic data:`, quizzes[topic]);
+  
+  // Check if topic exists
+  if (!quizzes[topic]) {
+    console.error(`❌ Topic not found: ${topic}`);
+    alert(`Error: Topic "${topic}" not found in quizzes`);
+    return;
+  }
+  
+  // Check if quiz exists
+  if (!quizzes[topic][qName]) {
+    console.error(`❌ Quiz not found: ${qName} in topic: ${topic}`);
+    console.log(`Available quizzes in ${topic}:`, Object.keys(quizzes[topic]));
+    alert(`Error: Quiz "${qName}" not found in topic "${topic}"`);
+    return;
+  }
+  
   selectedQuiz = qName;
   selectedTopic = topic;
   quizList.classList.add('hidden');
@@ -266,6 +307,16 @@ function startQuiz(qName, topic) {
   resultsContainer.classList.add('hidden');
   
   currentQuizData = quizzes[topic][qName];
+  
+  // Validate quiz data
+  if (!Array.isArray(currentQuizData) || currentQuizData.length === 0) {
+    console.error(`❌ Quiz data is invalid:`, currentQuizData);
+    alert(`Error: Quiz data is invalid or empty`);
+    return;
+  }
+  
+  console.log(`✅ Quiz loaded with ${currentQuizData.length} questions`);
+  
   currentQuestion = 0;
   score = 0;
   
@@ -278,9 +329,32 @@ function startQuiz(qName, topic) {
 
 // ==== SECTION 5: SHOW QUESTION WITH PROGRESS ====
 function showQuestion() {
+  // Validate current quiz data
+  if (!currentQuizData || !Array.isArray(currentQuizData) || currentQuizData.length === 0) {
+    console.error(`❌ Invalid currentQuizData:`, currentQuizData);
+    alert("Error: Quiz data is not available");
+    return;
+  }
+  
+  // Validate current question index
+  if (currentQuestion < 0 || currentQuestion >= currentQuizData.length) {
+    console.error(`❌ Invalid question index: ${currentQuestion}, total questions: ${currentQuizData.length}`);
+    return;
+  }
+  
   const q = currentQuizData[currentQuestion];
+  
+  // Validate question structure
+  if (!q || !q.question || !Array.isArray(q.options) || !q.answer) {
+    console.error(`❌ Invalid question structure:`, q);
+    alert("Error: Question data is invalid");
+    return;
+  }
+  
   const totalQuestions = currentQuizData.length;
   const progressPercent = Math.round(((currentQuestion) / totalQuestions) * 100);
+  
+  console.log(`📝 Question ${currentQuestion + 1}/${totalQuestions}: ${q.question.substring(0, 50)}...`);
   
   // Update progress bar
   document.getElementById('progressNum').textContent = currentQuestion + 1;
@@ -293,7 +367,12 @@ function showQuestion() {
   
   const optionsContainer = document.getElementById('options-container');
   
-  q.options.forEach(opt => {
+  q.options.forEach((opt, index) => {
+    if (!opt) {
+      console.warn(`⚠️ Empty option at index ${index}`);
+      return;
+    }
+    
     const btn = document.createElement('button');
     btn.textContent = opt;
     btn.className = "option w-full p-4 rounded-lg bg-gray-800 hover:bg-gray-700 text-white text-left font-semibold transition duration-200 border-2 border-transparent";

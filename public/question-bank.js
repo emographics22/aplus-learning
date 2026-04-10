@@ -398,28 +398,48 @@ const questionBankData = {
 function generateQuizzes(topicQuestions, numberOfQuizzes = 50, questionsPerQuiz = 25) {
   const quizzes = {};
   const questionPool = topicQuestions;
-  let usedQuestions = new Set();
+  
+  console.log(`🔄 Generating ${numberOfQuizzes} quizzes with ${questionsPerQuiz} questions each from ${questionPool.length} available questions`);
   
   for (let i = 1; i <= numberOfQuizzes; i++) {
     const quizName = `Quiz ${i}`;
     quizzes[quizName] = [];
+    let quizUsedIndices = new Set(); // Track indices used in THIS quiz only
     
-    // Select random unique questions for this quiz
-    while (quizzes[quizName].length < questionsPerQuiz && usedQuestions.size < questionPool.length) {
+    // Select random unique questions for this quiz (no duplicates within the same quiz)
+    let attempts = 0;
+    while (quizzes[quizName].length < questionsPerQuiz && attempts < questionsPerQuiz * 10) {
       const randomIndex = Math.floor(Math.random() * questionPool.length);
-      const questionId = randomIndex + i * 10000; // Unique ID
+      attempts++;
       
-      if (!usedQuestions.has(questionId)) {
+      // Make sure this question hasn't been used in THIS quiz already
+      if (!quizUsedIndices.has(randomIndex)) {
         const q = questionPool[randomIndex];
+        
+        // Validate question format
+        if (!q || !q.q || !q.a) {
+          console.warn(`⚠️ Invalid question at index ${randomIndex}:`, q);
+          continue;
+        }
+        
         const answers = Array.isArray(q.a) ? q.a : [q.a];
         const correctAnswer = answers[0];
         
         // Generate multiple choice options
         const options = [correctAnswer];
-        while (options.length < 4) {
+        while (options.length < 4 && answers.length < 4) {
           const randomOption = answers[Math.floor(Math.random() * answers.length)];
           if (!options.includes(randomOption)) {
             options.push(randomOption);
+          }
+        }
+        
+        // If we still don't have 4 options, add generic ones
+        while (options.length < 4) {
+          const defaultOptions = ["Yes", "No", "Maybe", "Unknown"];
+          const defaultOption = defaultOptions[Math.floor(Math.random() * defaultOptions.length)];
+          if (!options.includes(defaultOption)) {
+            options.push(defaultOption);
           }
         }
         
@@ -432,11 +452,17 @@ function generateQuizzes(topicQuestions, numberOfQuizzes = 50, questionsPerQuiz 
           answer: correctAnswer
         });
         
-        usedQuestions.add(questionId);
+        quizUsedIndices.add(randomIndex);
       }
+    }
+    
+    // Log if we couldn't fill the quiz completely
+    if (quizzes[quizName].length < questionsPerQuiz) {
+      console.warn(`⚠️ ${quizName}: Only ${quizzes[quizName].length}/${questionsPerQuiz} questions filled`);
     }
   }
   
+  console.log(`✅ Generated ${Object.keys(quizzes).length} quizzes successfully`);
   return quizzes;
 }
 
