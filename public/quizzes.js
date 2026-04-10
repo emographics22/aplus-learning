@@ -1,4 +1,11 @@
-// quizzes.js
+// quizzes.js - Uses generated question bank with 50 quizzes x 2 cores = 2,500 questions
+
+// Import generated quizzes from question-bank.js
+// The generatedQuizzes object contains 50 quizzes per topic with 25 unique questions each
+let quizzes = generatedQuizzes || {
+  "Core 1 → 220-1201": {},
+  "Core 2 → 220-1202": {}
+};
 
 // Function to shuffle array
 function shuffleArray(array) {
@@ -31,73 +38,8 @@ function shuffleQuizzes(quizzesObj) {
   return shuffled;
 }
 
-let quizzes = {
-  "Core 1 → 220-1201": {
-    "Quiz 1": [
-      { question: "Which device is used to test a power supply?", options: ["Multimeter","Screwdriver","Oscilloscope","Printer"], answer: "Multimeter" }, // option 1
-      { question: "Which of these is volatile memory?", options: ["ROM","SSD","RAM","HDD"], answer: "RAM" }, // option 3
-      { question: "What is the first step in troubleshooting?", options:["Identify problem","Fix immediately","Replace hardware","Call support"], answer:"Identify problem" }, // option 1
-      { question: "Which cable type is used for high-speed network connections?", options:["Coaxial","Fiber Optic","Twisted Pair","HDMI"], answer:"Fiber Optic"}, // option 2
-      { question: "Which expansion slot is commonly used for graphics cards?", options:["PCIe","AGP","ISA","PCI"], answer:"PCIe"}, // option 1
-      { question: "What type of printer uses toner?", options:["Inkjet","Dot Matrix","Laser","Thermal"], answer:"Laser"}, // option 3
-      { question: "Which tool is used to remove screws?", options:["Screwdriver","Pliers","Multimeter","Wire Cutter"], answer:"Screwdriver"}, // option 1
-      { question: "Which memory type stores BIOS settings?", options:["RAM","ROM","Cache","EEPROM"], answer:"EEPROM"}, // option 4
-      { question: "Which storage type is fastest?", options:["HDD","SSD","Optical","Tape"], answer:"SSD"}, // option 2
-      { question: "Which connector is used for analog monitors?", options:["HDMI","VGA","DisplayPort","USB-C"], answer:"VGA"}, // option 2
-      { question: "Which device amplifies Wi-Fi signals?", options:["Repeater","Router","Switch","Modem"], answer:"Repeater"}, // option 1
-      { question: "Which component converts AC to DC?", options:["Power Supply","CPU","GPU","RAM"], answer:"Power Supply"}, // option 1
-      { question: "Which device connects multiple networks?", options:["Switch","Router","Hub","Access Point"], answer:"Router"}, // option 2
-      { question: "Which connector is used for Ethernet?", options:["RJ11","RJ45","USB","HDMI"], answer:"RJ45"}, // option 2
-      { question: "Which expansion card handles audio?", options:["Sound Card","Network Card","Graphics Card","Storage Controller"], answer:"Sound Card"}, // option 1
-      { question: "Which OS type is open-source?", options:["Windows","macOS","Linux","iOS"], answer:"Linux"}, // option 3
-      { question: "Which type of cable prevents EMI?", options:["Twisted Pair","Shielded Twisted Pair","Coaxial","Fiber"], answer:"Shielded Twisted Pair"}, // option 2
-      { question: "Which component provides temporary storage for CPU?", options:["HDD","Cache","RAM","ROM"], answer:"Cache"}, // option 2
-      { question: "Which tool checks voltage?", options:["Multimeter","Screwdriver","Crimper","Pliers"], answer:"Multimeter"}, // option 1
-      { question: "Which type of memory is non-volatile?", options:["RAM","ROM","Cache","Registers"], answer:"ROM"}, // option 2
-      { question: "Which device is used to expand network ports?", options:["Switch","Hub","Router","Modem"], answer:"Switch"}, // option 1
-      { question: "Which connector carries digital video?", options:["HDMI","VGA","DVI","USB-C"], answer:"HDMI"}, // option 1
-      { question: "Which expansion slot is older?", options:["PCIe","AGP","PCI","ISA"], answer:"ISA"}, // option 4
-      { question: "Which printer technology uses impact?", options:["Laser","Inkjet","Dot Matrix","Thermal"], answer:"Dot Matrix"}, // option 3
-      { question: "Which storage uses spinning disks?", options:["SSD","HDD","Tape","USB Flash"], answer:"HDD"} // option 2
-    ],
-     "Quiz 2": [
-      { question: "Which type of network cable is used in homes?", options: ["Coaxial","Fiber","Twisted Pair","HDMI"], answer: "Twisted Pair" },
-      { question: "Which slot is used for older graphics cards?", options: ["PCIe","AGP","ISA","PCI"], answer: "AGP" },
-      { question: "Which tool crimps connectors?", options: ["Crimper","Screwdriver","Multimeter","Pliers"], answer: "Crimper" },
-      { question: "Which device connects multiple computers in a LAN?", options: ["Switch","Router","Modem","Hub"], answer: "Switch" },
-      { question: "Which cable type is immune to EMI?", options: ["UTP","STP","Coaxial","Fiber"], answer: "Fiber" },
-      { question: "Which memory type is temporary?", options: ["RAM","ROM","EEPROM","Flash"], answer: "RAM" },
-      { question: "Which expansion card connects to the Internet?", options: ["Network Card","Sound Card","GPU","Storage Controller"], answer: "Network Card" },
-      { question: "Which connector is used for telephones?", options: ["RJ11","RJ45","USB","HDMI"], answer: "RJ11" },
-      { question: "Which component speeds up CPU processing?", options: ["Cache","RAM","ROM","GPU"], answer: "Cache" },
-      { question: "Which printer uses a ribbon for printing?", options: ["Dot Matrix","Laser","Inkjet","Thermal"], answer: "Dot Matrix" },
-      { question: "Which OS is developed by Apple?", options: ["Windows","macOS","Linux","Chrome OS"], answer: "macOS" },
-      { question: "Which tool measures current?", options: ["Multimeter","Screwdriver","Pliers","Crimper"], answer: "Multimeter" },
-      { question: "Which storage is fastest for random access?", options: ["HDD","SSD","Tape","Optical"], answer: "SSD" },
-      { question: "Which cable type has a shielding layer?", options: ["STP","UTP","Fiber","Coaxial"], answer: "STP" },
-      { question: "Which device converts digital to analog signals?", options: ["Modem","Switch","Router","Hub"], answer: "Modem" },
-      { question: "Which expansion slot is the newest?", options: ["PCIe","PCI","AGP","ISA"], answer: "PCIe" },
-      { question: "Which connector carries analog video?", options: ["VGA","HDMI","DisplayPort","USB-C"], answer: "VGA" },
-      { question: "Which device repeats wireless signals?", options: ["Repeater","Router","Switch","Modem"], answer: "Repeater" },
-      { question: "Which type of storage uses spinning disks?", options: ["HDD","SSD","Flash","Tape"], answer: "HDD" },
-      { question: "Which Windows tool removes programs?", options: ["Programs and Features","Task Manager","Event Viewer","Control Panel"], answer: "Programs and Features" },
-      { question: "Which memory stores firmware?", options: ["ROM","RAM","Cache","Flash"], answer: "ROM" },
-      { question: "Which cable is used for high-speed networks?", options: ["Coaxial","Fiber","Twisted Pair","USB"], answer: "Fiber" },
-      { question: "Which tool tightens screws?", options: ["Screwdriver","Crimper","Multimeter","Pliers"], answer: "Screwdriver" },
-      { question: "Which type of printer uses toner?", options: ["Laser","Inkjet","Dot Matrix","Thermal"], answer: "Laser" },
-      { question: "Which component stores BIOS settings?", options: ["EEPROM","RAM","ROM","Cache"], answer: "EEPROM" }
-    ],
-
-    "Quiz 3": [
-      { question: "Which device expands network ports?", options: ["Switch","Hub","Router","Modem"], answer: "Switch" },
-      { question: "Which connector carries digital video?", options: ["HDMI","VGA","DVI","USB-C"], answer: "HDMI" },
-      { question: "Which OS type is open-source?", options: ["Linux","Windows","macOS","iOS"], answer: "Linux" },
-      { question: "Which malware replicates itself?", options: ["Virus","Worm","Trojan","Spyware"], answer: "Virus" },
-      { question: "Which cable prevents EMI?", options: ["STP","UTP","Coaxial","Fiber"], answer: "STP" },
-      { question: "Which memory is non-volatile?", options: ["ROM","RAM","Cache","Registers"], answer: "ROM" },
-      { question: "Which tool removes old connectors?", options: ["Pliers","Screwdriver","Crimper","Multimeter"], answer: "Pliers" },
-      { question: "Which connector is used for Ethernet?", options: ["RJ45","RJ11","USB","HDMI"], answer: "RJ45" },
-      { question: "Which expansion slot handles graphics cards?", options: ["PCIe","AGP","ISA","PCI"], answer: "PCIe" },
+// Shuffle quizzes on load
+quizzes = shuffleQuizzes(quizzes);
       { question: "Which storage type uses flash memory?", options: ["SSD","HDD","Tape","Optical"], answer: "SSD" },
       { question: "Which Windows tool monitors system resources?", options: ["Task Manager","Event Viewer","Disk Management","Control Panel"], answer: "Task Manager" },
       { question: "Which type of printer is impact-based?", options: ["Dot Matrix","Laser","Inkjet","Thermal"], answer: "Dot Matrix" },
