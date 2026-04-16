@@ -132,10 +132,7 @@ function loadTopics() {
   });
 }
 
-// Load topics - quizzes are pre-generated and ready instantly
-loadTopics();
-
-// Additional safety check
+// Additional safety check - load topics when page is ready
 window.addEventListener('load', () => {
   console.log("=== PAGE FULLY LOADED ===");
   console.log("quizzes object:", quizzes);
@@ -149,28 +146,26 @@ window.addEventListener('load', () => {
     }
   }
   
-  if (!quizzesReady || !quizzes || Object.keys(quizzes).length === 0) {
+  // NOW load topics after everything is loaded
+  if (quizzes && Object.keys(quizzes).length > 0) {
+    console.log("✅ Quizzes are READY and populated - Loading topics...");
+    loadTopics();
+  } else {
     console.error("❌ ISSUE: Quizzes not ready or empty");
-    console.log("Checking generatedQuizzes:", typeof generatedQuizzes);
+    console.log("Checking quizzes object:", quizzes);
     
     setTimeout(() => {
       console.log("=== SECOND CHECK (after 1 second) ===");
       console.log("quizzesReady:", quizzesReady);
       console.log("quizzes:", quizzes);
-      if (quizzes) {
+      if (quizzes && Object.keys(quizzes).length > 0) {
+        console.log("✅ Quizzes loaded on second check - Loading topics...");
+        loadTopics();
         for (const topic in quizzes) {
           console.log(`${topic}: ${Object.keys(quizzes[topic] || {}).length} quizzes`);
         }
       }
     }, 1000);
-  } else {
-    console.log("✅ Quizzes are READY and populated");
-  }
-});
-    console.log(`✅ Found ${Object.keys(quizzes).length} topic(s)`);
-    for (let topic in quizzes) {
-      console.log(`   - ${topic}: ${Object.keys(quizzes[topic]).length} quizzes`);
-    }
   }
 });
 
@@ -430,6 +425,13 @@ nextBtn.onclick = () => {
     }
   }
 };
+
+// ==== SECTION 7B: SHOW REGISTER PROMPT ====
+function showRegisterPrompt() {
+  console.log("💬 Showing register prompt to guest");
+  // Show alert or modal prompting guest to register
+  alert("🔒 Your guest quiz attempt completed!\n\nRegister or login to:\n✅ Save your progress\n✅ Track your scores\n✅ Access all quizzes");
+}
 
 // ==== SECTION 8: SHOW RESULTS ====
 function showResults() {
